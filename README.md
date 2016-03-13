@@ -1,4 +1,4 @@
-# Engineering-Quiz
+# EngineeringQuiz
 
 Projekt aplikacji/quizu dla inżynierów elektroników, którzy chcą sprawdzić swoją wiedzę.
 
