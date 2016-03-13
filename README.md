@@ -3,6 +3,7 @@
 Projekt aplikacji/quizu dla inżynierów elektroników, którzy chcą sprawdzić swoją wiedzę.
 
 Team:
+  <p>
   <br>
   Arkadiusz Bochyński
   <br>
