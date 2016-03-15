@@ -9,5 +9,10 @@
     <string name="dontYouHaveAccount_text">Don\'t you have account?</string>
     <string name="signUpText">Sign up now!</string>
     <string name="signInButton_text">Sign in</string>
-    <string name="signUpButton_text">Sign up</string>
+    <string name="signUpButton_text">Sign up!</string>
+
+    //registration activity
+    <string name="enterLogin_text">Enter login:</string>
+    <string name="enterPassword_text">Enter password:</string>
+    <string name="reenterPassword_text">Re-enter password:</string>
 </resources>
