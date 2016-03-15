@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Engineering Quiz</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="logowanie">Login</string>
+    <string name="login">Login</string>
+    <string name="loginHint">Login</string>
+    <string name="passwordHint">Password</string>
+    <string name="loginRemember">Remember me</string>
+    <string name="dontYouHaveAccount_text">Don\'t you have account?</string>
+    <string name="signUpText">Sign up now!</string>
+    <string name="signInButton_text">Sign in</string>
+    <string name="signUpButton_text">Sign up</string>
 </resources>

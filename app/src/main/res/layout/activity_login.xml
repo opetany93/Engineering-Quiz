@@ -14,30 +14,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Login"
+        android:text="@string/login"
         android:ems="10"
-        android:id="@+id/editText" />
+        android:id="@+id/loginTextEdit"
+        android:gravity="center_horizontal" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:hint="Password" />
+        android:id="@+id/passwordTextEdit"
+        android:hint="@string/passwordHint"
+        android:gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in"
-        android:id="@+id/sigIn"
+        android:text="@string/signInButton_text"
+        android:id="@+id/sigInButton"
         android:layout_gravity="center_horizontal" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remember me"
-        android:id="@+id/checkBox"
+        android:text="@string/loginRemember"
+        android:id="@+id/rememberMeCheckBox"
         android:layout_gravity="center_horizontal"
         android:checked="false" />
 
@@ -45,17 +47,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Don&apos;t you have account?"
-        android:id="@+id/textView"
+        android:text="@string/dontYouHaveAccount_text"
+        android:id="@+id/dontYouHaveAccountTextView"
         android:layout_gravity="center_horizontal"
-        android:height="80dp"
-        android:gravity="bottom" />
+        android:gravity="bottom"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/signUpText"
+        android:id="@+id/signUpTextView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:id="@+id/sigUp"
-        android:layout_gravity="center_horizontal" />
+        android:text="@string/signUpButton_text"
+        android:id="@+id/sigUpButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:onClick="registrationButton"/>
 
 </LinearLayout>
