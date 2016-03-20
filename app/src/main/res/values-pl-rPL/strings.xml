@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Engineering Quiz</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="logowanie">Logowanie</string>
+    <string name="login">Login</string>
+    <string name="loginHint">Login</string>
+    <string name="passwordHint">Hasło</string>
+    <string name="loginRemember">Zapamiętaj moje logowanie</string>
+    <string name="dontYouHaveAccount_text">Nie posiadasz konta?</string>
+    <string name="signUpText">Zarejestruj się teraz!</string>
+    <string name="signInButton_text">Zaloguj</string>
+    <string name="signUpButton_text">Zarejestruj</string>
+</resources>
