@@ -8,6 +8,5 @@
         android:layout_height="wrap_content"
         android:text="MENU"
         android:id="@+id/textView4"
-	//tu zmienilem
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
