@@ -5,13 +5,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class LoginActivity extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity
+{
+
+
+    private static String compare_user = "http://opetany.ddns.net/site/android_mysql_connect/compare_user.php";
+
+    // JSON Node names
+    private static final String TAG_SUCCESS = "success";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
     }
 
 
@@ -21,5 +32,10 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
+    }
+
+    public void login(View view)
+    {
+
     }
 }
