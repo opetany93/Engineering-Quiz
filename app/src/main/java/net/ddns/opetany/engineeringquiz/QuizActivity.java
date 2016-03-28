@@ -63,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
 
         lvlCntView.setText("LvL " + lvlCntInt);
         QuestionTextView.setText(questions[questionNumber]);
-        askNumber = questionNumber * 2;
+        askNumber = questionNumber * 4;
         Ask1Button.setText(asks[askNumber]);
         Ask2Button.setText(asks[askNumber + 1]);
         Ask3Button.setText(asks[askNumber + 2]);
