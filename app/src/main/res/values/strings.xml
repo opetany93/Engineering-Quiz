@@ -15,4 +15,12 @@
     <string name="enterLogin_text">Enter login:</string>
     <string name="enterPassword_text">Enter password:</string>
     <string name="reenterPassword_text">Re-enter password:</string>
+
+    //Menu layout
+    <string name="startQuiz">QUIZ</string>
+    <string name="ranking">Ranking</string>
+    <string name="settings">Settings</string>
+    <string name="LogOut">Log Out</string>
+
+    //
 </resources>

@@ -16,4 +16,11 @@
     <string name="enterLogin_text">Podaj login:</string>
     <string name="enterPassword_text">Podaj hasło:</string>
     <string name="reenterPassword_text">Ponownie podaj hasło:</string>
+
+    //Menu layout
+    <string name="startQuiz">QUIZ</string>
+    <string name="ranking">Ranking</string>
+    <string name="settings">Ustawienia</string>
+    <string name="LogOut">Wyloguj</string>
+>>>>>>> df2852d015e4dc04f52dfe6e4cdd153ff7951a3c
 </resources>
