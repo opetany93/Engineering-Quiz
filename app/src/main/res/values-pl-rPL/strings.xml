@@ -11,4 +11,10 @@
     <string name="signUpText">Zarejestruj się teraz!</string>
     <string name="signInButton_text">Zaloguj</string>
     <string name="signUpButton_text">Zarejestruj</string>
+
+    //Menu layout
+    <string name="startQuiz">QUIZ</string>
+    <string name="ranking">Ranking</string>
+    <string name="settings">Ustawienia</string>
+    <string name="LogOut">Wyloguj</string>
 </resources>
