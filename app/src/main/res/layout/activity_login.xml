@@ -34,7 +34,7 @@
         android:text="@string/signInButton_text"
         android:id="@+id/sigInButton"
         android:layout_gravity="center_horizontal"
-        android:onClick="login"/>
+        android:onClick="loginOnClick"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -70,6 +70,6 @@
         android:id="@+id/sigUpButton"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:onClick="registrationButton"/>
+        android:onClick="registrationButtonOnClick"/>
 
 </LinearLayout>
