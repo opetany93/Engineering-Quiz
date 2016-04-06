@@ -22,5 +22,8 @@
     <string name="ranking">Ranking</string>
     <string name="settings">Ustawienia</string>
     <string name="LogOut">Wyloguj</string>
->>>>>>> df2852d015e4dc04f52dfe6e4cdd153ff7951a3c
+
+    //login activity
+    <string name="toast_wrong_loginOrPassword">Zły login lub hasło!</string>
+
 </resources>

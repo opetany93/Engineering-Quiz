@@ -16,7 +16,7 @@
         android:inputType="textPersonName"
         android:hint="@string/login"
         android:ems="10"
-        android:id="@+id/loginTextEdit"
+        android:id="@+id/login_EditText"
         android:gravity="center_horizontal" />
 
     <EditText
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/passwordTextEdit"
+        android:id="@+id/password_EditText"
         android:hint="@string/passwordHint"
         android:gravity="center_horizontal" />
 
@@ -44,6 +44,13 @@
         android:layout_gravity="center_horizontal"
         android:checked="false" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +59,7 @@
         android:id="@+id/dontYouHaveAccountTextView"
         android:layout_gravity="center_horizontal"
         android:gravity="bottom"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
