@@ -15,12 +15,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/enterLogin_text"
-        android:id="@+id/textView" />
+        android:id="@+id/enterLogin_TextView" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/registration_login_EditText"
         android:hint="@string/loginHint"
         android:gravity="center_horizontal" />
 
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/enterPassword_text"
-        android:id="@+id/textView2"
+        android:id="@+id/enterPassword_TextView"
         android:layout_marginTop="30dp" />
 
     <EditText
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/registration_password_EditText"
         android:layout_gravity="center_horizontal"
         android:hint="@string/passwordHint"
         android:gravity="center_horizontal" />
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/reenterPassword_text"
-        android:id="@+id/textView3"
+        android:id="@+id/reenterPassword_TextView"
         android:layout_marginTop="30dp" />
 
     <EditText
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/rePassword_TextView"
         android:layout_gravity="center_horizontal"
         android:hint="@string/passwordHint"
         android:gravity="center_horizontal" />
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signUpButton_text"
-        android:id="@+id/button"
+        android:id="@+id/signUp_TextView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:onClick="registrationDoneButton"/>
