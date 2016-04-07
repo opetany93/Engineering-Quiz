@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity
+{
 
 
     TextView    QuestionTextView;

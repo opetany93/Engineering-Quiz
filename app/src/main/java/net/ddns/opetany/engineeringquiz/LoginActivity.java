@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity
 {
     //adres pliku php do obsługi bazy MySQL
     static final String URL_login = "http://opetany.ddns.net/android_mysql_connect/login.php";
+    static final String URL_create_user = "http://opetany.ddns.net/android_mysql_connect/create_user.php";
 
     //zmienne do loginu i hasla
     String login;
@@ -34,6 +35,9 @@ public class LoginActivity extends AppCompatActivity
     JSONObject jsonObject;
     int loginSuccess;
 
+    EditText login_object;
+    EditText pass_object;
+
     @Override
     protected void onCreate (Bundle savedInstanceState)
     {
@@ -42,21 +46,13 @@ public class LoginActivity extends AppCompatActivity
 
         progressBar = (ProgressBar) findViewById (R.id.progressBar);
         progressBar.setVisibility (ProgressBar.INVISIBLE);
-    }
 
-    public void registrationButtonOnClick (View view)
-    {
-        Intent intent = new Intent (this, RegistrationActivity.class);
-
-        startActivity (intent);
-        finish ();
+        login_object = (EditText) findViewById (R.id.login_EditText);
+        pass_object = (EditText) findViewById (R.id.password_EditText);
     }
 
     public void loginOnClick (View view)
     {
-        EditText login_object = (EditText) findViewById (R.id.login_EditText);
-        EditText pass_object = (EditText) findViewById (R.id.password_EditText);
-
         login = login_object.getText ().toString ();
         password = pass_object.getText ().toString ();
 
@@ -79,7 +75,7 @@ public class LoginActivity extends AppCompatActivity
 
             try
             {
-                //utowrzenie połączenia
+                //utworzenie połączenia
                 URL url = new URL (URL_login);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection ();
                 connection.setDoOutput (true);
@@ -147,5 +143,12 @@ public class LoginActivity extends AppCompatActivity
                 Toast.makeText (LoginActivity.this, text, Toast.LENGTH_SHORT).show ();
             }
         }
+    }
+
+    public void registrationButtonOnClick (View view)
+    {
+        Intent intent = new Intent (this, RegistrationActivity.class);
+
+        startActivity (intent);
     }
 }
