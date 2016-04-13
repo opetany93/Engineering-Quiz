@@ -36,6 +36,9 @@ public class QuizActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        //   progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        //   progressBar.setVisibility(ProgressBar.INVISIBLE);
+
         questionNumber    = getIntent().getIntExtra("QESTION_NUMBER", 0);
         lvlCntInt         = getIntent().getIntExtra("LVL_CNT_INT",1);
         answers[0]        = 2;
@@ -70,8 +73,79 @@ public class QuizActivity extends AppCompatActivity
         Ask3Button.setText(asks[askNumber + 2]);
         Ask4Button.setText(asks[askNumber + 3]);
 
+
+        //   new questionTask ().execute ();
     }
 
+    //    private class questionTask extends AsyncTask<Void, Void, Void> {
+//
+//
+//        @Override
+//        protected void onPreExecute() {
+//            progressBar.setVisibility(ProgressBar.VISIBLE);
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            //Zapytanie POST do login.php
+//            String parameters = "lvl=" + lvlCntInt + "&id=" + askNumber;
+//
+//            try {
+//                //Utworzenie połączenia
+//                URL url = new URL(URL_login);
+//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//                connection.setDoOutput(true);
+//                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//                connection.connect();
+//
+//                //wysłanie zapytania POST
+//                OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
+//                request.write(parameters);
+//                request.flush();
+//                request.close();
+//
+//                //odczyt odpowiedz od pliku question.php
+//                String line;
+//                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
+//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//                StringBuilder stringBuilder = new StringBuilder();
+//
+//                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
+//
+//                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
+//                jsonObject = new JSONObject(stringBuilder.toString());
+//
+//                inputStreamReader.close();
+//                bufferedReader.close();
+//
+//                connection.disconnect();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            progressBar.setVisibility(ProgressBar.INVISIBLE);
+//
+//
+//            try {
+//                //elementy z tablicy JSON'a do zmiennej całkowitej
+//                //   QuestionTextView = jsonObject.getString("question");
+//                //   Ask1Button       = jsonObject.getString("ans1");
+//                //    Ask2Button       = jsonObject.getString("ans2");
+//                //     Ask3Button       = jsonObject.getString("ans3");
+//                //     Ask4Button       = jsonObject.getString("ans4");
+//                //    good_ans         = jsonObject.getInt("good_ans");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
 
     // -----------------------------------------------------------> Poniżej sprawdzanie poprawności
 

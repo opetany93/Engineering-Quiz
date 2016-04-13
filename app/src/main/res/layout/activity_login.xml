@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.ddns.opetany.engineeringquiz.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/tab3_t">
 
     <EditText
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
         android:hint="@string/login"
         android:ems="10"
         android:id="@+id/login_EditText"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/textshape" />
 
     <EditText
         android:layout_width="match_parent"
@@ -26,7 +28,8 @@
         android:ems="10"
         android:id="@+id/password_EditText"
         android:hint="@string/passwordHint"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/textshape" />
 
     <Button
         android:layout_width="wrap_content"
@@ -34,11 +37,13 @@
         android:text="@string/signInButton_text"
         android:id="@+id/sigInButton"
         android:layout_gravity="center_horizontal"
-        android:onClick="loginOnClick"/>
+        android:onClick="loginOnClick"
+        android:background="@drawable/buttonshape" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="serif"
         android:text="@string/loginRemember"
         android:id="@+id/rememberMeCheckBox"
         android:layout_gravity="center_horizontal"
@@ -57,6 +62,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/dontYouHaveAccount_text"
         android:id="@+id/dontYouHaveAccountTextView"
+        android:fontFamily="serif"
         android:layout_gravity="center_horizontal"
         android:gravity="bottom"
         android:layout_marginTop="20dp" />
@@ -66,6 +72,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/signUpText"
+        android:fontFamily="serif"
         android:id="@+id/signUpTextView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp" />
@@ -77,6 +84,7 @@
         android:id="@+id/sigUpButton"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:onClick="registrationButtonOnClick"/>
+        android:background="@drawable/buttonshape"
+        android:onClick="registrationButtonOnClick" />
 
 </LinearLayout>

@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.ddns.opetany.engineeringquiz.QuizActivity"
-    android:background="#4c5eff">
+    android:background="@drawable/tab3">
 
 
     <TextView
@@ -18,8 +18,8 @@
         android:textSize="50dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/LevelCounterTextView"
-        android:gravity="center"
-        android:background="#da00ff00" />
+        android:background="@drawable/lvlshape"
+        android:gravity="center" />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,35 +30,33 @@
         android:layout_below="@+id/LevelCounterTextView"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:background="#91060303"
+        android:background="@drawable/questionshape"
         android:textColor="#ffffff" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_below="@id/QuestionTextView"
         android:id="@+id/linear1"
+        android:layout_above="@+id/linear2"
         android:layout_height="wrap_content">
 
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="New Button"
             android:id="@+id/Ask1Button"
+            android:background="@drawable/buttonquizshape"
             android:layout_weight="1"
-            android:onClick="Ask1ButtonClick"
-            android:layout_centerVertical="true" />
+            android:onClick="Ask1ButtonClick"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="New Button"
             android:onClick="Ask2ButtonClick"
             android:id="@+id/Ask2Button"
             android:layout_weight="1"
-            android:layout_alignBottom="@+id/Ask1Button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:background="@drawable/buttonquizshape"/>
 
     </android.support.v7.widget.LinearLayoutCompat>
 
@@ -66,29 +64,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/linear2"
-    android:layout_below="@+id/linear1">
+    android:layout_alignParentBottom="true">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="New Button"
         android:onClick="Ask3ButtonClick"
         android:layout_weight="1"
         android:id="@+id/Ask3Button"
-        android:layout_below="@+id/Ask1Button"
-        android:layout_alignRight="@+id/Ask1Button"
-        android:layout_alignEnd="@+id/Ask1Button" />
+        android:background="@drawable/buttonquizshape" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="New Button"
         android:onClick="Ask4ButtonClick"
         android:layout_weight="1"
         android:id="@+id/Ask4Button"
-        android:layout_alignBottom="@+id/Ask3Button"
-        android:layout_alignRight="@+id/Ask2Button"
-        android:layout_alignEnd="@+id/Ask2Button" />
+        android:background="@drawable/buttonquizshape" />
 </android.support.v7.widget.LinearLayoutCompat>
 
 
