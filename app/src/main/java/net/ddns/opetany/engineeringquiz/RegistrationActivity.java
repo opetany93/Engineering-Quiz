@@ -18,7 +18,7 @@ public class RegistrationActivity extends AppCompatActivity
 
     public void registrationDoneButton(View view)
     {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
 
         startActivity(intent);
     }

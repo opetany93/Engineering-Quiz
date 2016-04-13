@@ -25,5 +25,6 @@
 
     //login activity
     <string name="toast_wrong_loginOrPassword">Zły login lub hasło!</string>
+    <string name="noInternetConnection">Brak połączenia z Internetem!</string>
 
 </resources>

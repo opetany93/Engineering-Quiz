@@ -25,5 +25,7 @@
 
     //login activity
     <string name="toast_wrong_loginOrPassword">Wrong login or password!</string>
+    <string name="noInternetConnection">No Internet connection!</string>
+    <string name="loginActivity_preference_file_key">rememberMeSharedPref</string>
 
 </resources>
