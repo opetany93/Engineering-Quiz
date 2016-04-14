@@ -8,27 +8,34 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.ddns.opetany.engineeringquiz.RegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/tab3_t">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/enterLogin_text"
-        android:id="@+id/enterLogin_TextView" />
+        android:layout_gravity="center"
+        android:fontFamily="serif"
+        android:id="@+id/enterLogin_TextView"
+        android:focusableInTouchMode="false" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/registration_login_EditText"
         android:hint="@string/loginHint"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/textshape" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/enterPassword_text"
+        android:layout_gravity="center"
+        android:fontFamily="serif"
         android:id="@+id/enterPassword_TextView"
         android:layout_marginTop="30dp" />
 
@@ -40,13 +47,16 @@
         android:id="@+id/registration_password_EditText"
         android:layout_gravity="center_horizontal"
         android:hint="@string/passwordHint"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/textshape" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/reenterPassword_text"
+        android:layout_gravity="center"
+        android:fontFamily="serif"
         android:id="@+id/reenterPassword_TextView"
         android:layout_marginTop="30dp" />
 
@@ -58,7 +68,8 @@
         android:id="@+id/rePassword_TextView"
         android:layout_gravity="center_horizontal"
         android:hint="@string/passwordHint"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/textshape" />
 
     <Button
         android:layout_width="wrap_content"
@@ -67,5 +78,6 @@
         android:id="@+id/signUp_TextView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:onClick="registrationDoneButton"/>
+        android:background="@drawable/buttonshape"
+        android:onClick="registrationDoneButton" />
 </LinearLayout>
