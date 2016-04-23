@@ -10,7 +10,7 @@
     <string name="dontYouHaveAccount_text">Nie posiadasz konta?</string>
     <string name="signUpText">Zarejestruj się teraz!</string>
     <string name="signInButton_text">Zaloguj</string>
-    <string name="signUpButton_text">Zarejestruj się!</string>
+    <string name="signUpButton_text">Zarejestruj się</string>
 
     //registration activity
     <string name="enterLogin_text">Podaj login:</string>
@@ -26,5 +26,10 @@
     //login activity
     <string name="toast_wrong_loginOrPassword">Zły login lub hasło!</string>
     <string name="noInternetConnection">Brak połączenia z Internetem!</string>
+
+    <string name="givenPassNotEquals">Podane hasła się różnią!</string>
+    <string name="tooShortLogin"> Podany login jest za króki, min. 4 znaki</string>
+    <string name="tooShortPassword">Podane hasło jest za krótkie, min. 6 znaków</string>
+    <string name="registrationError">Błąd, spróbuj ponownie</string>
 
 </resources>

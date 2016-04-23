@@ -29,19 +29,18 @@ public class LoginActivity extends AppCompatActivity
 {
     //adres pliku php do obsługi bazy MySQL
     static final String URL_login = "http://opetany.ddns.net/android_mysql_connect/login.php";
-    //static final String URL_create_user = "http://opetany.ddns.net/android_mysql_connect/create_user.php";
 
     //zmienne do loginu i hasla
-    String login;
-    String password;
+    private String login;
+    private String password;
 
     //objekty do login taska i json'a
-    ProgressBar progressBar;
-    JSONObject jsonObject;
-    int loginSuccess;
+    private ProgressBar progressBar;
+    private JSONObject jsonObject;
+    private int loginSuccess;
 
-    EditText login_object;
-    EditText pass_object;
+    private EditText login_object;
+    private EditText pass_object;
     CheckBox rememberMeCheckBox;
 
     //objekt SharedPreferences do zapamiętania, że użytkownik jest zalogowany
@@ -191,7 +190,7 @@ public class LoginActivity extends AppCompatActivity
 
     public void registrationButtonOnClick (View view)
     {
-        Intent intent = new Intent (this, RegistrationActivity.class);
+        Intent intent = new Intent (LoginActivity.this, RegistrationActivity.class);
 
         startActivity (intent);
     }

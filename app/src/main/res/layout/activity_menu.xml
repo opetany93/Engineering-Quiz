@@ -11,7 +11,9 @@
         android:id="@+id/StartQuizButton"
         android:onClick="StartQuiz"
         android:background="@drawable/buttonmenushape"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"/>
 
     <Button
         android:layout_width="200dp"
@@ -19,7 +21,8 @@
         android:text="@string/ranking"
         android:id="@+id/RankButton"
         android:background="@drawable/buttonmenushape"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"/>
 
     <Button
         android:layout_width="200dp"
@@ -27,7 +30,8 @@
         android:text="@string/settings"
         android:background="@drawable/buttonmenushape"
         android:id="@+id/SettingsButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"/>
 
     <Button
         android:layout_width="200dp"
@@ -36,6 +40,7 @@
         android:background="@drawable/buttonmenushape"
         android:id="@+id/LogOutButton"
         android:onClick="LogOut"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

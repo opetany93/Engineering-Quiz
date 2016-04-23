@@ -19,7 +19,8 @@
         android:ems="10"
         android:id="@+id/login_EditText"
         android:gravity="center_horizontal"
-        android:background="@drawable/textshape" />
+        android:background="@drawable/textshape"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -29,7 +30,8 @@
         android:id="@+id/password_EditText"
         android:hint="@string/passwordHint"
         android:gravity="center_horizontal"
-        android:background="@drawable/textshape" />
+        android:background="@drawable/textshape"
+        android:layout_margin="5dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -38,7 +40,8 @@
         android:id="@+id/sigInButton"
         android:layout_gravity="center_horizontal"
         android:onClick="loginOnClick"
-        android:background="@drawable/buttonshape" />
+        android:background="@drawable/buttonshape"
+        android:layout_margin="5dp"/>
 
     <CheckBox
         android:layout_width="wrap_content"
