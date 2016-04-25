@@ -19,7 +19,7 @@ public class MenuActivity extends AppCompatActivity
 
     public void StartQuiz(View view)
     {
-        Intent intent = new Intent(this, QuizActivity.class);
+        Intent intent = new Intent(MenuActivity.this, QuizActivity.class);
         startActivity(intent);
         finish();
     }
@@ -32,10 +32,10 @@ public class MenuActivity extends AppCompatActivity
         SharedPreferences.Editor editor;
         editor = rememberMeSharedPref.edit ();
         editor.putBoolean ("logged", false);
-        editor.commit ();
+        editor.apply ();
 
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

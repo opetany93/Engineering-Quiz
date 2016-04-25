@@ -2,7 +2,6 @@ package net.ddns.opetany.engineeringquiz;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -62,12 +61,12 @@ public class RegistrationActivity extends AppCompatActivity
         password = pass_object.getText().toString ();
         String re_password = re_pass_object.getText().toString();
 
-        if( (password.length() >= 6) && (login.length() >= 4) )
+        if( (password.length() <= 20) && (password.length() >= 6) && (login.length() >= 4) && (login.length() <= 15) )
         {
-            if (password.equals(re_password))
+            if ( password.equals(re_password) )
             {
                 //sprawdź czy jest połączenie
-                if (isOnline())
+                if ( isOnline() )
                 {
                     //załącz taska do logowania
                     new registrationTask().execute();
@@ -86,15 +85,31 @@ public class RegistrationActivity extends AppCompatActivity
         }
         else
         {
+            //komunikat jeśli podany login jest za krótki
             if( login.length() < 4 )
             {
                 CharSequence text = getString(R.string.tooShortLogin);
                 Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
             }
 
+            //komunikat jeśli podany login jest za długi
+            if( login.length() > 15 )
+            {
+                CharSequence text = getString(R.string.tooLongLogin);
+                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+
+            //komunikat jeśli podane hasło jest za krótkie
             if( password.length() < 6 )
             {
                 CharSequence text = getString (R.string.tooShortPassword);
+                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+
+            //komunikat jeśli podane hasło jeest za długie
+            if( password.length() > 20 )
+            {
+                CharSequence text = getString (R.string.tooLongPassword);
                 Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
             }
         }
@@ -176,9 +191,14 @@ public class RegistrationActivity extends AppCompatActivity
 
                 startActivity(intent);
             }
+            else if (registrationSuccess == -1)
+            {
+                CharSequence text = getString(R.string.userAlreadyExist);
+                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show ();
+            }
             else
             {
-                CharSequence text = getString(R.string.registrationError);
+                CharSequence text = getString(R.string.registrationLoginError);
                 Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show ();
             }
         }
