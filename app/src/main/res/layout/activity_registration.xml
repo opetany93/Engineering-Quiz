@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/rePassword_TextView"
+        android:id="@+id/rePassword_EditText"
         android:layout_gravity="center_horizontal"
         android:hint="@string/passwordHint"
         android:gravity="center_horizontal"
@@ -75,9 +75,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signUpButton_text"
-        android:id="@+id/signUp_TextView"
+        android:id="@+id/signUp_Button"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:background="@drawable/buttonshape"
-        android:onClick="registrationDoneButton" />
+        android:onClick="registrationDoneButton"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar_reg"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="40dp"/>
 </LinearLayout>

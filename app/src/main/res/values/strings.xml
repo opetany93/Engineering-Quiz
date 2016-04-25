@@ -10,7 +10,7 @@
     <string name="dontYouHaveAccount_text">Don\'t you have account?</string>
     <string name="signUpText">Sign up now!</string>
     <string name="signInButton_text">Sign in</string>
-    <string name="signUpButton_text">Sign up!</string>
+    <string name="signUpButton_text">Sign up</string>
 
     //registration activity
     <string name="enterLogin_text">Enter login:</string>
@@ -23,9 +23,15 @@
     <string name="settings">Settings</string>
     <string name="LogOut">Log Out</string>
 
-    //login activity
+    //login i registration activity
     <string name="toast_wrong_loginOrPassword">Wrong login or password!</string>
     <string name="noInternetConnection">No Internet connection!</string>
     <string name="loginActivity_preference_file_key">rememberMeSharedPref</string>
+
+    <string name="givenPassNotEquals">Given passwords are different!</string>
+    <string name="tooShortLogin">Login is too short, min. 4 characters</string>
+    <string name="tooShortPassword">Password is too short, min. 6 characters</string>
+    <string name="registrationError">Error, try again</string>
+
 
 </resources>
