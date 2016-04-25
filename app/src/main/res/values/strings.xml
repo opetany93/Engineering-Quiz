@@ -33,5 +33,8 @@
     <string name="tooShortPassword">Password is too short, min. 6 characters</string>
     <string name="registrationError">Error, try again</string>
 
+    //lvl_up xml
+    <string name="bravo">BRAVO!</string>
+    <string name="nextlvl">NEXT LEVEL</string>
 
 </resources>

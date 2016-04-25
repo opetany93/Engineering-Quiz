@@ -109,41 +109,41 @@ public class LoginActivity extends AppCompatActivity
             //zapytanie POST do login.php
             String parameters = "login="+ login +"&password=" + password;
 
-                try
-                {
-                    //utworzenie połączenia
-                    URL url = new URL (URL_login);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection ();
-                    connection.setDoOutput (true);
-                    connection.setRequestProperty ("Content-Type", "application/x-www-form-urlencoded");
-                    connection.connect ();
+            try
+            {
+                //utworzenie połączenia
+                URL url = new URL (URL_login);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection ();
+                connection.setDoOutput (true);
+                connection.setRequestProperty ("Content-Type", "application/x-www-form-urlencoded");
+                connection.connect ();
 
-                    //wysłanie zapytania POST
-                    OutputStreamWriter request = new OutputStreamWriter (connection.getOutputStream ());
-                    request.write (parameters);
-                    request.flush ();
-                    request.close ();
+                //wysłanie zapytania POST
+                OutputStreamWriter request = new OutputStreamWriter (connection.getOutputStream ());
+                request.write (parameters);
+                request.flush ();
+                request.close ();
 
-                    //odczyt odpowiedz od pliku login.php
-                    String line;
-                    InputStreamReader inputStreamReader = new InputStreamReader (connection.getInputStream ());
-                    BufferedReader bufferedReader = new BufferedReader (inputStreamReader);
-                    StringBuilder stringBuilder = new StringBuilder ();
+                //odczyt odpowiedz od pliku login.php
+                String line;
+                InputStreamReader inputStreamReader = new InputStreamReader (connection.getInputStream ());
+                BufferedReader bufferedReader = new BufferedReader (inputStreamReader);
+                StringBuilder stringBuilder = new StringBuilder ();
 
-                    while ((line = bufferedReader.readLine ()) != null) stringBuilder.append (line);
+                while ((line = bufferedReader.readLine ()) != null) stringBuilder.append (line);
 
-                    //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
-                    jsonObject = new JSONObject (stringBuilder.toString ());
+                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
+                jsonObject = new JSONObject (stringBuilder.toString ());
 
-                    inputStreamReader.close ();
-                    bufferedReader.close ();
+                inputStreamReader.close ();
+                bufferedReader.close ();
 
-                    connection.disconnect ();
-                }
-                catch (IOException | JSONException e)
-                {
-                    e.printStackTrace ();
-                }
+                connection.disconnect ();
+            }
+            catch (IOException | JSONException e)
+            {
+                e.printStackTrace ();
+            }
 
 
             return null;

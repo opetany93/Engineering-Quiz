@@ -32,4 +32,7 @@
     <string name="tooShortPassword">Podane hasło jest za krótkie, min. 6 znaków</string>
     <string name="registrationError">Błąd, spróbuj ponownie</string>
 
+    //lvl_up xml
+    <string name="bravo">BRAWO!</string>
+    <string name="nextlvl">KOLEJNY LEVEL</string>
 </resources>
