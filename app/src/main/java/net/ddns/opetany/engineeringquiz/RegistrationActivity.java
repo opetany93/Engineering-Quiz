@@ -190,6 +190,7 @@ public class RegistrationActivity extends AppCompatActivity
                 Intent intent = new Intent(RegistrationActivity.this, MenuActivity.class);
 
                 startActivity(intent);
+                finish();
             }
             else if (registrationSuccess == -1)
             {

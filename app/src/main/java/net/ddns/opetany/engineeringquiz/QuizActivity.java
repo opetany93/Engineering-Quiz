@@ -2,12 +2,10 @@ package net.ddns.opetany.engineeringquiz;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +20,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity
+{
     //adres pliku php do obsługi bazy MySQL
-    static final String URL_login = "http://opetany.ddns.net/android_mysql_connect/question.php";
-
-   // private ProgressBar progressBar;
+    static final String URL_question = "http://opetany.ddns.net/android_mysql_connect/question.php";
 
     private JSONObject jsonObject;
 
@@ -50,12 +47,10 @@ public class QuizActivity extends AppCompatActivity {
     String question;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
-       // progressBar = (ProgressBar) findViewById(R.id.progressBar);
-      //  progressBar.setVisibility(ProgressBar.INVISIBLE);
 
         questionNumber = getIntent().getIntExtra("QESTION_NUMBER", 1);
         lvlCntInt = getIntent().getIntExtra("LVL_CNT_INT", 1);
@@ -71,25 +66,26 @@ public class QuizActivity extends AppCompatActivity {
         new questionTask().execute();
 
         lvlCntView.setText("LvL " + lvlCntInt);
-
     }
 
-    private class questionTask extends AsyncTask<Void, Void, Void> {
-
-
+    private class questionTask extends AsyncTask<Void, Void, Void>
+    {
         @Override
-        protected void onPreExecute() {
-         //   progressBar.setVisibility(ProgressBar.VISIBLE);
+        protected void onPreExecute()
+        {
+
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(Void... params)
+        {
             //Zapytanie POST do login.php
             String parameters = "lvl=" + lvlCntInt + "&id=" + questionNumber;
 
-            try {
+            try
+            {
                 //Utworzenie połączenia
-                URL url = new URL(URL_login);
+                URL url = new URL(URL_question);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -116,9 +112,9 @@ public class QuizActivity extends AppCompatActivity {
                 bufferedReader.close();
 
                 connection.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            }
+            catch (IOException | JSONException e)
+            {
                 e.printStackTrace();
             }
 
@@ -126,12 +122,10 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-         //   progressBar.setVisibility(ProgressBar.INVISIBLE);
-
-
-            try {
-
+        protected void onPostExecute(Void result)
+        {
+            try
+            {
                 //elementy z tablicy JSON'a do zmiennej całkowitej
                 question = jsonObject.getString("question");
                 ask1 = jsonObject.getString("ans1");
@@ -146,26 +140,26 @@ public class QuizActivity extends AppCompatActivity {
                 Ask2Button.setText(ask2);
                 Ask3Button.setText(ask3);
                 Ask4Button.setText(ask4);
-
-                } catch (JSONException e) {
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
-
             }
         }
-
     }
 
         // -----------------------------------------------------------> Poniżej sprawdzanie poprawności
-
         public void
-        checkAsk(Integer idAsk) {
+        checkAsk(Integer idAsk)
+        {
             Intent intent;
-            if (idAsk == good_ans) {
+            if (idAsk == good_ans)
+            {
                 // Co trzecie pytanie zwiększamy lvl
-                if((questionNumber % 3) == 0) {
+                if((questionNumber % 3) == 0)
+                {
                     lvlCntInt++;
                     setContentView(R.layout.lvl_up);
-
                 }
                 questionNumber++;
                 intent = new Intent(this, QuizActivity.class);
@@ -175,29 +169,31 @@ public class QuizActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "GOOD!", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 finish();
-            } else {
+            }
+            else
+            {
                 Toast.makeText(getApplicationContext(), "WRONG!", Toast.LENGTH_SHORT).show();
             }
         }
 
-
-
-    //-------------------------------------------------------------> Obsluga przycisków
-
-        public void Ask1ButtonClick(View view) {
+        //-------------------------------------------------------------> Obsluga przycisków
+        public void Ask1ButtonClick(View view)
+        {
             checkAsk(1);
         }
 
-        public void Ask2ButtonClick(View view) {
+        public void Ask2ButtonClick(View view)
+        {
             checkAsk(2);
         }
 
-        public void Ask3ButtonClick(View view) {
+        public void Ask3ButtonClick(View view)
+        {
             checkAsk(3);
         }
 
-        public void Ask4ButtonClick(View view) {
+        public void Ask4ButtonClick(View view)
+        {
             checkAsk(4);
         }
-
 }
