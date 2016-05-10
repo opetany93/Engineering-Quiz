@@ -24,13 +24,17 @@
     <string name="LogOut">Wyloguj</string>
 
     //login activity
-    <string name="toast_wrong_loginOrPassword">Zły login lub hasło!</string>
+    <string name="wrong_login">Zły login!</string>
+    <string name="wrong_password">Złe hasło!</string>
     <string name="noInternetConnection">Brak połączenia z Internetem!</string>
 
     <string name="givenPassNotEquals">Podane hasła się różnią!</string>
     <string name="tooShortLogin"> Podany login jest za króki, min. 4 znaki</string>
     <string name="tooShortPassword">Podane hasło jest za krótkie, min. 6 znaków</string>
-    <string name="registrationError">Błąd, spróbuj ponownie</string>
+    <string name="tooLongLogin">Podany login jest za długi, max. 15 znaków</string>
+    <string name="tooLongPassword">Podane hasło jest za długie, min. 20 znaków</string>
+    <string name="registrationLoginError">Błąd, spróbuj ponownie później</string>
+    <string name="userAlreadyExist">Użytkownik już istnieje!</string>
 
     //lvl_up xml
     <string name="bravo">BRAWO!</string>

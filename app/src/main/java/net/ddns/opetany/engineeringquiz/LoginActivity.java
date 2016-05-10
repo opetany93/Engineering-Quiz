@@ -165,25 +165,35 @@ public class LoginActivity extends AppCompatActivity
                 e.printStackTrace ();
             }
 
-            if (loginSuccess == 1)
+            if ( loginSuccess == 1 )
             {
                 //sprawdż czy checkbox jest zaznaczony
-                if(rememberMeCheckBox.isChecked ())
+                if( rememberMeCheckBox.isChecked () )
                 {
                     SharedPreferences.Editor editor;
-                    editor = rememberMeSharedPref.edit ();
-                    editor.putBoolean ("logged", true);
-                    editor.apply ();
+                    editor = rememberMeSharedPref.edit();
+                    editor.putBoolean("logged", true);
+                    editor.apply();
                 }
 
-                Intent intent = new Intent (LoginActivity.this, MenuActivity.class);
-                startActivity (intent);
-                finish ();
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else if( loginSuccess == -1 )
+            {
+                CharSequence text = getString(R.string.wrong_password);
+                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show ();
+            }
+            else if( loginSuccess == -2 )
+            {
+                CharSequence text = getString(R.string.wrong_login);
+                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show ();
             }
             else
             {
-                CharSequence text = getString(R.string.toast_wrong_loginOrPassword);
-                Toast.makeText (LoginActivity.this, text, Toast.LENGTH_SHORT).show ();
+                CharSequence text = getString(R.string.registrationLoginError);
+                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show ();
             }
         }
     }

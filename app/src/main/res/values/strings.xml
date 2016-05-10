@@ -24,14 +24,18 @@
     <string name="LogOut">Log Out</string>
 
     //login i registration activity
-    <string name="toast_wrong_loginOrPassword">Wrong login or password!</string>
+    <string name="wrong_login">Wrong login!</string>
+    <string name="wrong_password">Wrong password!</string>
     <string name="noInternetConnection">No Internet connection!</string>
     <string name="loginActivity_preference_file_key">rememberMeSharedPref</string>
 
     <string name="givenPassNotEquals">Given passwords are different!</string>
     <string name="tooShortLogin">Login is too short, min. 4 characters</string>
     <string name="tooShortPassword">Password is too short, min. 6 characters</string>
-    <string name="registrationError">Error, try again</string>
+    <string name="tooLongLogin">Login is too long, max. 15 characters</string>
+    <string name="tooLongPassword">Password is too long, min. 20 characters</string>
+    <string name="registrationLoginError">Error, try again later</string>
+    <string name="userAlreadyExist">User already exist!</string>
 
     //lvl_up xml
     <string name="bravo">BRAVO!</string>
