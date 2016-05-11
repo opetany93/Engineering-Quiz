@@ -25,7 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/QuestionTextView"
         android:layout_below="@+id/LevelCounterTextView"
         android:layout_centerHorizontal="true"
@@ -43,7 +42,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="New Button"
             android:id="@+id/Ask1Button"
             android:background="@drawable/buttonquizshape"
             android:layout_weight="1"
@@ -52,7 +50,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="New Button"
             android:onClick="Ask2ButtonClick"
             android:id="@+id/Ask2Button"
             android:layout_weight="1"
@@ -69,7 +66,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="New Button"
         android:onClick="Ask3ButtonClick"
         android:layout_weight="1"
         android:id="@+id/Ask3Button"
@@ -78,7 +74,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="New Button"
         android:onClick="Ask4ButtonClick"
         android:layout_weight="1"
         android:id="@+id/Ask4Button"
