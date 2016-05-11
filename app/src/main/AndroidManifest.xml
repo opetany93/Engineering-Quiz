@@ -25,7 +25,8 @@
             android:name=".RegistrationActivity"
             android:label="Registration" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".QuizActivity"></activity>
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>

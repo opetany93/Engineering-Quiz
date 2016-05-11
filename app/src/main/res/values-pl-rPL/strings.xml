@@ -39,4 +39,9 @@
     //lvl_up xml
     <string name="bravo">BRAWO!</string>
     <string name="nextlvl">KOLEJNY LEVEL</string>
+
+    //result xml
+
+    <string name="endOfGame">Koniec gry!</string>
+    <string name="yourResult">Twój wynik</string>
 </resources>

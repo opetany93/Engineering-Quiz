@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity
 
     //zmienne do loginu i hasla
     private String login;
+    private String login1;
     private String password;
 
     //objekty do login taska i json'a
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity
 
     //objekt SharedPreferences do zapamiętania, że użytkownik jest zalogowany
     SharedPreferences rememberMeSharedPref;
+    SharedPreferences rememberUserName;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity
 
         //pobierz SharedPreferences
         rememberMeSharedPref = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
+        rememberUserName = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
 
         //sprawdź czy zawiera pole "loogged"
         if ( rememberMeSharedPref.contains ("logged") )
@@ -80,6 +83,11 @@ public class LoginActivity extends AppCompatActivity
         //pobierz tekst z pól do zmiennych
         login = login_object.getText ().toString ();
         password = pass_object.getText ().toString ();
+
+        SharedPreferences.Editor edit;
+        edit= rememberUserName.edit();
+        edit.putString("LOGIN", login);
+        edit.apply();
 
         //sprawdź czy jest połączenie
         if ( isOnline () )
@@ -170,9 +178,11 @@ public class LoginActivity extends AppCompatActivity
                 //sprawdż czy checkbox jest zaznaczony
                 if( rememberMeCheckBox.isChecked () )
                 {
+
                     SharedPreferences.Editor editor;
                     editor = rememberMeSharedPref.edit();
                     editor.putBoolean("logged", true);
+
                     editor.apply();
                 }
 
