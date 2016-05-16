@@ -30,9 +30,9 @@
 
     <string name="givenPassNotEquals">Podane hasła się różnią!</string>
     <string name="tooShortLogin"> Podany login jest za króki, min. 4 znaki</string>
-    <string name="tooShortPassword">Podane hasło jest za krótkie, min. 6 znaków</string>
+    <string name="tooShortPassword">Podane hasło jest za krótkie,\nmin. 6 znaków</string>
     <string name="tooLongLogin">Podany login jest za długi, max. 15 znaków</string>
-    <string name="tooLongPassword">Podane hasło jest za długie, min. 20 znaków</string>
+    <string name="tooLongPassword">Podane hasło jest za długie,\nmin. 20 znaków</string>
     <string name="registrationLoginError">Błąd, spróbuj ponownie później</string>
     <string name="userAlreadyExist">Użytkownik już istnieje!</string>
 

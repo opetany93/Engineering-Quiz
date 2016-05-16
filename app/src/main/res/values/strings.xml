@@ -27,7 +27,7 @@
     <string name="wrong_login">Wrong login!</string>
     <string name="wrong_password">Wrong password!</string>
     <string name="noInternetConnection">No Internet connection!</string>
-    <string name="loginActivity_preference_file_key">rememberMeSharedPref</string>
+    <string name="loginActivity_preference_file_key">loginSharedPref</string>
 
     <string name="givenPassNotEquals">Given passwords are different!</string>
     <string name="tooShortLogin">Login is too short, min. 4 characters</string>
