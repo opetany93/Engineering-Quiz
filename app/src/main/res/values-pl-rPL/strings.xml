@@ -44,4 +44,7 @@
 
     <string name="endOfGame">Koniec gry!</string>
     <string name="yourResult">Twój wynik</string>
+    <string name="menuButton">MENU</string>
+    <string name="rangingButton">RANKING</string>
+
 </resources>
