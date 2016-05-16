@@ -7,43 +7,41 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="net.ddns.opetany.engineeringquiz.ResultActivity"
+    tools:context="net.ddns.opetany.engineeringquiz.lvlUP"
     android:background="@drawable/tab3">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/endOfGame"
-        android:id="@+id/endOfGameTextView"
+        android:text="@string/bravo"
+        android:id="@+id/bravoTextView"
         android:layout_alignParentTop="true"
-        android:gravity="center"
         android:layout_marginTop="100dp"
+        android:gravity="center"
         android:background="@drawable/questionshape"
-        android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/yourResult"
-        android:id="@+id/yourResult"
-        android:layout_below="@+id/endOfGameTextView"
+        android:text="@string/nextlvl"
+        android:id="@+id/nextLvlTextView"
         android:gravity="center"
         android:background="@drawable/questionshape"
-        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
         android:textSize="30dp"
-        android:textColor="#ffffff" />
+        android:layout_below="@+id/bravoTextView"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:id="@+id/lvlTextView"
+        android:id="@+id/lvlUpTextView"
         android:background="@drawable/lvlshape"
+        android:layout_below="@+id/nextLvlTextView"
         android:gravity="center"
-        android:layout_below="@+id/yourResult"
-        android:layout_centerHorizontal="true"
-        android:textSize="40dp" />
-
-
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
