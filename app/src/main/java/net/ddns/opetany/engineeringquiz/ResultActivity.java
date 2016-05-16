@@ -48,7 +48,7 @@ public class ResultActivity extends AppCompatActivity {
         lvlCntView.setText("Lvl " + lvlCntInt);
 
         //Pobieranie z SharedPref
-        login = rememberUserName.getString("LOGIN" , "Android");
+        login = rememberUserName.getString("login" , "Android");
 
 
 

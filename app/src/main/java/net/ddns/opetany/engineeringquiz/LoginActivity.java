@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity
 
     //zmienne do loginu i hasla
     private String login;
-    private String login1;
     private String password;
 
     //objekty do login taska i json'a
@@ -55,8 +54,8 @@ public class LoginActivity extends AppCompatActivity
         setContentView (R.layout.activity_login);
 
         //pobierz SharedPreferences
-        rememberMeSharedPref = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
-        rememberUserName = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
+        rememberMeSharedPref = getSharedPreferences (getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
+        rememberUserName = getSharedPreferences (getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
 
         //sprawdź czy zawiera pole "loogged"
         if ( rememberMeSharedPref.contains ("logged") )
@@ -86,19 +85,19 @@ public class LoginActivity extends AppCompatActivity
 
         SharedPreferences.Editor edit;
         edit= rememberUserName.edit();
-        edit.putString("LOGIN", login);
+        edit.putString("login", login);
         edit.apply();
 
         //sprawdź czy jest połączenie
-        if ( isOnline () )
+        if ( isOnline() )
         {
             //załącz taska do logowania
-            new loginTask ().execute ();
+            new loginTask().execute();
         }
         else
         {
             CharSequence text = getString(R.string.noInternetConnection);
-            Toast.makeText (LoginActivity.this, text, Toast.LENGTH_SHORT).show ();
+            Toast.makeText (LoginActivity.this, text, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -108,11 +107,11 @@ public class LoginActivity extends AppCompatActivity
         protected void onPreExecute()
         {
             //pokaż progressBar
-            progressBar.setVisibility (ProgressBar.VISIBLE);
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
-        protected Void doInBackground (Void... params)
+        protected Void doInBackground(Void... params)
         {
             //zapytanie POST do login.php
             String parameters = "login="+ login +"&password=" + password;
@@ -120,39 +119,38 @@ public class LoginActivity extends AppCompatActivity
             try
             {
                 //utworzenie połączenia
-                URL url = new URL (URL_login);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection ();
-                connection.setDoOutput (true);
-                connection.setRequestProperty ("Content-Type", "application/x-www-form-urlencoded");
-                connection.connect ();
+                URL url = new URL(URL_login);
+                HttpURLConnection connection =(HttpURLConnection) url.openConnection ();
+                connection.setDoOutput(true);
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                connection.connect();
 
                 //wysłanie zapytania POST
-                OutputStreamWriter request = new OutputStreamWriter (connection.getOutputStream ());
-                request.write (parameters);
-                request.flush ();
-                request.close ();
+                OutputStreamWriter request = new OutputStreamWriter( connection.getOutputStream() );
+                request.write(parameters);
+                request.flush();
+                request.close();
 
                 //odczyt odpowiedz od pliku login.php
                 String line;
-                InputStreamReader inputStreamReader = new InputStreamReader (connection.getInputStream ());
-                BufferedReader bufferedReader = new BufferedReader (inputStreamReader);
-                StringBuilder stringBuilder = new StringBuilder ();
+                InputStreamReader inputStreamReader = new InputStreamReader( connection.getInputStream() );
+                BufferedReader bufferedReader = new BufferedReader( inputStreamReader );
+                StringBuilder stringBuilder = new StringBuilder();
 
-                while ((line = bufferedReader.readLine ()) != null) stringBuilder.append (line);
+                while (( line = bufferedReader.readLine() ) != null) stringBuilder.append(line);
 
                 //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
-                jsonObject = new JSONObject (stringBuilder.toString ());
+                jsonObject = new JSONObject ( stringBuilder.toString() );
 
-                inputStreamReader.close ();
-                bufferedReader.close ();
+                inputStreamReader.close();
+                bufferedReader.close();
 
-                connection.disconnect ();
+                connection.disconnect();
             }
             catch (IOException | JSONException e)
             {
-                e.printStackTrace ();
+                e.printStackTrace();
             }
-
 
             return null;
         }
@@ -161,22 +159,22 @@ public class LoginActivity extends AppCompatActivity
         protected void onPostExecute(Void result)
         {
             //schowaj progressBar
-            progressBar.setVisibility (ProgressBar.INVISIBLE);
+            progressBar.setVisibility(ProgressBar.INVISIBLE);
 
             try
             {
                 //element z tablicy JSON'a do zmiennej calkowitej
-                loginSuccess = jsonObject.getInt ("success");
+                loginSuccess = jsonObject.getInt("success");
             }
             catch (JSONException e)
             {
-                e.printStackTrace ();
+                e.printStackTrace();
             }
 
             if ( loginSuccess == 1 )
             {
                 //sprawdż czy checkbox jest zaznaczony
-                if( rememberMeCheckBox.isChecked () )
+                if( rememberMeCheckBox.isChecked() )
                 {
 
                     SharedPreferences.Editor editor;

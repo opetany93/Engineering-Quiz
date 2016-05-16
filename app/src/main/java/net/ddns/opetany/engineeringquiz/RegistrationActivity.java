@@ -137,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                connection.connect ();
+                connection.connect();
 
                 //wysłanie zapytania POST
                 OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream ());
@@ -145,13 +145,13 @@ public class RegistrationActivity extends AppCompatActivity
                 request.flush();
                 request.close();
 
-                //odczyt odpowiedz od pliku login.php
+                //odczyt odpowiedz od pliku create_user.php
                 String line;
                 InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream ());
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 StringBuilder stringBuilder = new StringBuilder();
 
-                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
+                while ( (line = bufferedReader.readLine()) != null ) stringBuilder.append(line);
 
                 //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
                 jsonObject = new JSONObject(stringBuilder.toString ());
@@ -185,22 +185,22 @@ public class RegistrationActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-            if (registrationSuccess == 1)
+            if ( registrationSuccess == 1 )
             {
                 Intent intent = new Intent(RegistrationActivity.this, MenuActivity.class);
 
                 startActivity(intent);
                 finish();
             }
-            else if (registrationSuccess == -1)
+            else if ( registrationSuccess == -1 )
             {
                 CharSequence text = getString(R.string.userAlreadyExist);
-                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show ();
+                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
             }
             else
             {
                 CharSequence text = getString(R.string.registrationLoginError);
-                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show ();
+                Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
             }
         }
     }
