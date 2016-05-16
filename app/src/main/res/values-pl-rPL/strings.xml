@@ -36,7 +36,7 @@
     <string name="registrationLoginError">Błąd, spróbuj ponownie później</string>
     <string name="userAlreadyExist">Użytkownik już istnieje!</string>
 
-    //lvl_up xml
+    //activity_lvlup xml
     <string name="bravo">BRAWO!</string>
     <string name="nextlvl">KOLEJNY LEVEL</string>
 

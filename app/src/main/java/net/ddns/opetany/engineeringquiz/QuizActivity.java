@@ -46,15 +46,20 @@ public class QuizActivity extends AppCompatActivity {
     //wskaznik na prawidlowa odp
     int good_ans;
 
+    //zmienne do losowania ID pytania
     int id_question;
     int k=0;
-    int tablica[] = new int[3];
 
+    //flaga sygnaluzujaca lvl UP
+    int lvlUP_flag =0;
+
+    //Stringi na odpowiedzi
     String ask1;
     String ask2;
     String ask3;
     String ask4;
 
+    //String zapytania
     String question;
 
     @Override
@@ -89,29 +94,30 @@ public class QuizActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             Intent intent = new Intent();
 
-            //Zapytanie POST do question.php
+            //LOSOWANIE ID PYTANIA
             Random rand = new Random();
             id_question = rand.nextInt(7);
            //Sprawdzanie czy ID się nie powtórzyło
 
-            k = getIntent().getIntExtra("CNT", 0);
+            k = getIntent().getIntExtra("CNT", 0);                          //Pobieranie k, jeżeli nie ma nic w CNT to k=0
 
-            if(k == 0) intent.putExtra("ID0", id_question);
+            if(k == 0) intent.putExtra("ID0", id_question);                 //Jeżeli k =0 to zapisz id w ID0
             if(k == 1){
-                intent.putExtra("ID1", id_question);
-                while (id_question == getIntent().getIntExtra("ID0",-1)){
+                while (id_question == getIntent().getIntExtra("ID0",-1)){   //Jeżeli k = 1 ( drugie pyt_ to losuuj do puki bedzie unikatowe i zapisz do ID1
                     id_question = rand.nextInt(7);
                 }
+                intent.putExtra("ID1", id_question);
             }
-            if(k == 2){
+            if(k == 2){                                                      //Jeżeli k = 2 ( trzecie pyt_ to  losuuj do puki bedzie unikatowe
                 while ((id_question == getIntent().getIntExtra("ID0",-1)) && (id_question == getIntent().getIntExtra("ID1",-1))){
                     id_question = rand.nextInt(7);
                 }
             }
             k++;
-            intent.putExtra("CNT", k);
+            if(k == 3 ) k = 0;                                                 //zabezpieczenie przed wyjsciem poza zakres
+            intent.putExtra("CNT", k);                                         // zapisz do CNT aktualnej wartości k
 
-            String parameters = "lvl=" + lvlCntInt + "&id=" + id_question;
+            String parameters = "lvl=" + lvlCntInt + "&id=" + id_question;     //wypełnienie zapytania do post
 
             try {
                 //Utworzenie połączenia
@@ -191,16 +197,28 @@ public class QuizActivity extends AppCompatActivity {
                     intent.putExtra("CNT", 0);
                     intent.putExtra("IDO", -1);
                     intent.putExtra("ID1", -1);
+
+                    lvlUP_flag = 1;
+
                 }
                 questionNumber++;
 
-                intent = new Intent(this, QuizActivity.class);
+                if(lvlUP_flag == 0){
+                    intent = new Intent(this, QuizActivity.class);
+                }
+
+                if(lvlUP_flag == 1){
+                    lvlUP_flag = 0;
+                    intent = new Intent(this, lvlUP.class);
+                }
+
                 intent.putExtra("QESTION_NUMBER", questionNumber);
                 intent.putExtra("LVL_CNT_INT", lvlCntInt);
 
                 Toast.makeText(getApplicationContext(), "GOOD!", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 finish();
+
             } else {
                 intent = new Intent(this, ResultActivity.class);
                 intent.putExtra("LVL_CNT_INT", lvlCntInt);
@@ -208,8 +226,6 @@ public class QuizActivity extends AppCompatActivity {
                 finish();
             }
         }
-
-
 
     //-------------------------------------------------------------> Obsluga przycisków
 

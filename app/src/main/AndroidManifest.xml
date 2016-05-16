@@ -12,8 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <activity
             android:name=".LoginActivity"
             android:label="Login">
@@ -28,11 +26,8 @@
             android:label="Registration" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".QuizActivity" />
-
-
-        <activity android:name=".ResultActivity">
-
-        </activity>
+        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".lvlUP"></activity>
     </application>
 
 </manifest>
