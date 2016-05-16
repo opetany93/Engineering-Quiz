@@ -3,8 +3,8 @@
           package="net.ddns.opetany.engineeringquiz">
 
     <!-- Internet Permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -12,24 +12,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/noTitleBar">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".LoginActivity"
+                  android:theme="@style/noTitleBar" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:label="Registration" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".QuizActivity" />
-        <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".lvlUP"></activity>
+            android:label="Registration"/>
+
+        <activity android:name=".MenuActivity"/>
+        <activity android:name=".QuizActivity"/>
+        <activity android:name=".ResultActivity"/>
+        <activity android:name=".lvlUP"/>
+
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/noStatusBar"
+            android:label="@string/app_name">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
