@@ -25,6 +25,7 @@ import java.util.Random;
 
 
 public class QuizActivity extends AppCompatActivity {
+
     //adres pliku php do obsługi bazy MySQL
     static final String URL_question = "http://opetany.ddns.net/android_mysql_connect/question.php";
 
@@ -40,15 +41,21 @@ public class QuizActivity extends AppCompatActivity {
     Button Ask3Button;
     Button Ask4Button;
 
+    ProgressBar CountDownProgressBar2;
+    int progress;
+
     //zmienna do obliczania lvl
     int questionNumber = 1;
     int lvlCntInt = 1;
+
     //wskaznik na prawidlowa odp
     int good_ans;
 
     //zmienne do losowania ID pytania
     int id_question;
     int k=0;
+
+    int ask;
 
     //flaga sygnaluzujaca lvl UP
     int lvlUP_flag =0;
@@ -76,11 +83,29 @@ public class QuizActivity extends AppCompatActivity {
         Ask3Button = (Button) findViewById(R.id.Ask3Button);
         Ask4Button = (Button) findViewById(R.id.Ask4Button);
         lvlCntView = (TextView) findViewById(R.id.LevelCounterTextView);
+        CountDownProgressBar2 = (ProgressBar) findViewById(R.id.CountDownProgressBar2);
 
         // Task wykonuje zapytanie do bazy
         new questionTask().execute();
 
         lvlCntView.setText("LvL " + lvlCntInt);
+        progress = 10000;
+        new CountDownTimer(10000, 100) {
+
+            public void onTick(long millisUntilFinished) {
+                progress -= 100;
+               // if(progress < 70 && progress > 30){
+                   // CountDownProgressBar2.getProgressDrawable().setColorFilter();
+             //   }
+                CountDownProgressBar2.setProgress(progress);
+            }
+
+            public void onFinish() {
+                Random rand_ask = new Random();
+                ask = rand_ask.nextInt(3) + 1;
+                checkAsk(ask);
+            }
+        }.start();
     }
 
     private class questionTask extends AsyncTask<Void, Void, Void> {
@@ -103,13 +128,13 @@ public class QuizActivity extends AppCompatActivity {
 
             if(k == 0) intent.putExtra("ID0", id_question);                 //Jeżeli k =0 to zapisz id w ID0
             if(k == 1){
-                while (id_question == getIntent().getIntExtra("ID0",-1)){   //Jeżeli k = 1 ( drugie pyt_ to losuuj do puki bedzie unikatowe i zapisz do ID1
+                while (id_question == getIntent().getIntExtra("ID0",1)){   //Jeżeli k = 1 ( drugie pyt_ to losuuj do puki bedzie unikatowe i zapisz do ID1
                     id_question = rand.nextInt(7);
                 }
                 intent.putExtra("ID1", id_question);
             }
             if(k == 2){                                                      //Jeżeli k = 2 ( trzecie pyt_ to  losuuj do puki bedzie unikatowe
-                while ((id_question == getIntent().getIntExtra("ID0",-1)) && (id_question == getIntent().getIntExtra("ID1",-1))){
+                while ((id_question == getIntent().getIntExtra("ID0",1)) && (id_question == getIntent().getIntExtra("ID1",1))){
                     id_question = rand.nextInt(7);
                 }
             }
