@@ -91,7 +91,8 @@
         android:layout_above="@+id/linear1"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#7f010000" />
+        android:background="#7f010000"
+        android:progress="10000" />
 
 
 </RelativeLayout>

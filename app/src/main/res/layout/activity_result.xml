@@ -45,5 +45,30 @@
         android:layout_centerHorizontal="true"
         android:textSize="40dp" />
 
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear1"
+        android:layout_alignParentBottom="true"
+        android:background="#00ffffff">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="@string/rangingButton"
+            android:layout_weight="1"
+            android:id="@+id/menuButton"
+            android:background="@drawable/buttonmenushape" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="@string/menuButton"
+            android:onClick="menuButtonOnClick"
+            android:layout_weight="1"
+            android:id="@+id/rankingButton"
+            android:background="@drawable/buttonmenushape" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </RelativeLayout>

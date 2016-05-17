@@ -1,10 +1,12 @@
 package net.ddns.opetany.engineeringquiz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,12 +52,18 @@ public class ResultActivity extends AppCompatActivity {
         //Pobieranie z SharedPref
         login = rememberUserName.getString("login" , "Android");
 
-
-
-
         // wykonanie wysłania wyniku do bazy danych
         new resultTask().execute();
     }
+
+    public void menuButtonOnClick(View view)
+    {
+        Intent intent = new Intent(ResultActivity.this, MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 
     private class resultTask extends AsyncTask<Void, Void, Void> {
 
@@ -123,4 +131,6 @@ public class ResultActivity extends AppCompatActivity {
 //        }
 
     }
+
+
 }

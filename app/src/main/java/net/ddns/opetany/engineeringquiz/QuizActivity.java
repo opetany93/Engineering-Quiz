@@ -1,7 +1,11 @@
 package net.ddns.opetany.engineeringquiz;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +73,21 @@ public class QuizActivity extends AppCompatActivity {
     //String zapytania
     String question;
 
+    CountDownTimer timDown = new CountDownTimer(10000,100){
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onTick(long millisUntilFinished) {
+            progress -= 100;
+            CountDownProgressBar2.setProgress(progress);
+        }
+
+        public void onFinish() {
+            Random rand_ask = new Random();
+            ask = rand_ask.nextInt(3) + 1;      //losowanie odpowiedzi po uplywie czasu
+            checkAsk(ask);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,23 +108,11 @@ public class QuizActivity extends AppCompatActivity {
         new questionTask().execute();
 
         lvlCntView.setText("LvL " + lvlCntInt);
-        progress = 10000;
-        new CountDownTimer(10000, 100) {
 
-            public void onTick(long millisUntilFinished) {
-                progress -= 100;
-               // if(progress < 70 && progress > 30){
-                   // CountDownProgressBar2.getProgressDrawable().setColorFilter();
-             //   }
-                CountDownProgressBar2.setProgress(progress);
-            }
+        progress = 10000;   //Wartosc do odliczania czasu na odp
 
-            public void onFinish() {
-                Random rand_ask = new Random();
-                ask = rand_ask.nextInt(3) + 1;
-                checkAsk(ask);
-            }
-        }.start();
+        timDown.start();    //Wystartowanie timera odmierzajacego czas na odp
+
     }
 
     private class questionTask extends AsyncTask<Void, Void, Void> {
@@ -214,17 +221,17 @@ public class QuizActivity extends AppCompatActivity {
 
         public void
         checkAsk(Integer idAsk) {
+
+            timDown.cancel();           //wylaczenie timera odliczajacego czas na odp
+
             Intent intent = new Intent();
             if (idAsk == good_ans) {
                 // Co trzecie pytanie zwiększamy lvl
                 if((questionNumber % 3) == 0) {
                     lvlCntInt++;
                     intent.putExtra("CNT", 0);
-                    intent.putExtra("IDO", -1);
-                    intent.putExtra("ID1", -1);
 
                     lvlUP_flag = 1;
-
                 }
                 questionNumber++;
 
