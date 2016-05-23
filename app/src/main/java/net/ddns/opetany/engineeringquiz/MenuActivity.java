@@ -40,5 +40,11 @@ public class MenuActivity extends AppCompatActivity
         finish();
     }
 
+    public void Ranking(View view)
+    {
 
+        Intent intent = new Intent(MenuActivity.this, RankingActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

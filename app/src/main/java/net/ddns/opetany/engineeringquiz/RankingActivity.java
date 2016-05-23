@@ -2,78 +2,74 @@ package net.ddns.opetany.engineeringquiz;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.orm.SugarContext;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ResultActivity extends AppCompatActivity {
+import retrofit2.http.POST;
 
-    //adres pliku php do obsługi bazy MySQL
-    static final String URL_result = "http://opetany.ddns.net/android_mysql_connect/result.php";
+public class RankingActivity extends AppCompatActivity {
 
-    //zmienne do wyświetlania lvl
-    TextView lvlCntView;
-    int lvlCntInt;
-
-    //zmienne do zapytania dp PHP
-    private String login;
-    public String parameters;
-
-    //objekt SharedPreferences do zapamiętania nazwy użytkownika
-    SharedPreferences rememberUserName;
+    //adres serwera do obsługi bazy MySQL
+    static final String URL_rank = "http://opetany.ddns.net/android_mysql_connect/rank.PHP";
 
     //objekt JSONA
     private JSONObject jsonObject;
 
 
+    //Zmienne dla rankigu
+   String user1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_ranging);
 
-        //pobierz SharedPreferences
-        rememberUserName = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key) ,  Context.MODE_PRIVATE);
+        // Task wykonuje zapytanie do bazy
+        new rankTask().execute();
 
-        //Wyświetlanie LVl na ekranie
-        lvlCntView = (TextView) findViewById(R.id.lvlTextView);
-        lvlCntInt = getIntent().getIntExtra("LVL_CNT_INT", 1);
-        lvlCntView.setText("Lvl " + lvlCntInt);
 
-        //Pobieranie z SharedPref nazwy zalogowanego uzyt
-        login = rememberUserName.getString("login" , "Android");
-
-        //Zapytanie POST do result.php
-        parameters = "lvl=" + lvlCntInt + "&user=" + login;
-
-        // wykonanie wysłania wyniku do bazy danych
-        new resultTask().execute();
     }
 
-    //rekacja na wcisniecie menu button
-    public void menuButtonOnClick(View view)
-    {
-        Intent intent = new Intent(ResultActivity.this, MenuActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
 
     // wyslanie wyniku do bazy danych
-    private class resultTask extends AsyncTask<Void, Void, Void> {
+    private class rankTask extends AsyncTask<Void, Void, Void> {
+        int flag_post = 1;
+        String parameters = "flag=" + flag_post;
 
         @Override
         protected void onPreExecute() {
@@ -85,7 +81,7 @@ public class ResultActivity extends AppCompatActivity {
 
             try {
                 //Utworzenie połączenia
-                URL url = new URL(URL_result);
+                URL url = new URL(URL_rank);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -98,7 +94,7 @@ public class ResultActivity extends AppCompatActivity {
                 request.close();
 
 
-                                                                            //NOTATKI PROGRAMISTY: Całe wysłanie zapytanie do bazy nie działa bez poniższych lini
+                //NOTATKI PROGRAMISTY: Całe wysłanie zapytanie do bazy nie działa bez poniższych lini
                 //odczyt odpowiedz
                 String line;
                 InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
@@ -118,30 +114,29 @@ public class ResultActivity extends AppCompatActivity {
                 e.printStackTrace();
 
             }
-              catch (JSONException e) {
+            catch (JSONException e) {
                 e.printStackTrace();
 
-           }
+            }
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void result) {
+  //      @Override
+  //      protected void onPostExecute(Void result) {
 
-            try {
-                //sprawdzenie czy padl rekord
-                if((jsonObject.getInt("message")) == 1){            // wartosc 1 oznacza nowy rekord
-                    Toast.makeText(getApplicationContext(), getString(R.string.record) , Toast.LENGTH_SHORT).show();
-                }
+ //           try {
+                //user1 = jsonObject.getString("login");
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
 
 
-        }
+ //       }
 
     }
 
 
 }
+
+
