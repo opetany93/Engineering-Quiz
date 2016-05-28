@@ -73,6 +73,9 @@ public class QuizActivity extends AppCompatActivity {
     //String zapytania
     String question;
 
+    //Intent
+    Intent intent = new Intent();
+
     CountDownTimer timDown = new CountDownTimer(10000,100){
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -124,7 +127,7 @@ public class QuizActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Intent intent = new Intent();
+
 
             //LOSOWANIE ID PYTANIA
             Random rand = new Random();
@@ -224,7 +227,7 @@ public class QuizActivity extends AppCompatActivity {
 
             timDown.cancel();           //wylaczenie timera odliczajacego czas na odp
 
-            Intent intent = new Intent();
+
             if (idAsk == good_ans) {
                 // Co trzecie pytanie zwiększamy lvl
                 if((questionNumber % 3) == 0) {

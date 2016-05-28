@@ -48,7 +48,6 @@ public class RankingActivity extends AppCompatActivity {
     //objekt JSONA
     private JSONObject jsonObject;
 
-
     //Zmienne dla rankigu
   // String user1;
 
