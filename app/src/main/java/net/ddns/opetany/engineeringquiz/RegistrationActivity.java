@@ -2,7 +2,6 @@ package net.ddns.opetany.engineeringquiz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -11,14 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RegistrationActivity extends AppCompatActivity
+public class RegistrationActivity extends NetworkActivity
 {
-
     //zmienne do loginu i hasla
     protected String login;
     protected String password;
@@ -57,24 +51,16 @@ public class RegistrationActivity extends AppCompatActivity
         {
             if ( password.equals(re_password) )
             {
-                // connect
-                // ustawiamy wybrane parametry adaptera
-                Retrofit retrofit = new Retrofit.Builder()
-                        // adres API
-                        .baseUrl(LoginActivity.server_URL)
-                        .addConverterFactory(GsonConverterFactory.create()).build();
                 // tworzymy klienta
-                WebService webService = retrofit.create(WebService.class);
+                WebService webService = getRetrofit().create(WebService.class);
 
-                final Call<LoginRegisterJSON> loginCall = webService.Register(login, password);
+                final Call<LoginRegisterJSON> registerCall = webService.Register(login, password);
 
-                loginCall.enqueue(new Callback<LoginRegisterJSON>()
+                registerCall.enqueue(new ApiClient.MyResponse<LoginRegisterJSON>()
                 {
                     @Override
-                    public void onResponse(Call<LoginRegisterJSON> call, Response<LoginRegisterJSON> response)
+                    void onSuccess(LoginRegisterJSON answer)
                     {
-                        LoginRegisterJSON answer = response.body();
-
                         //schowaj progressBar
                         progressBar.setVisibility(ProgressBar.INVISIBLE);
 
@@ -98,13 +84,12 @@ public class RegistrationActivity extends AppCompatActivity
                     }
 
                     @Override
-                    public void onFailure(Call<LoginRegisterJSON> call, Throwable t)
+                    void onFail(Throwable t)
                     {
                         CharSequence text = getString(R.string.noInternetConnection);
                         Toast.makeText(RegistrationActivity.this, text, Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
             else
             {
