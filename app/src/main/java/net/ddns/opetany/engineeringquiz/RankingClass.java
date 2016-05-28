@@ -7,12 +7,12 @@ import com.orm.SugarRecord;
  */
 public class RankingClass extends SugarRecord {
     String login;
-    String lvl;
+    int lvl;
 
     public RankingClass(){
     }
 
-    public RankingClass(String login, String lvl){
+    public RankingClass(String login, int lvl){
         this.login = login;
         this.lvl = lvl;
     }

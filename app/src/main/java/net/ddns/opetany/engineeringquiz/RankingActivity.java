@@ -50,8 +50,10 @@ public class RankingActivity extends AppCompatActivity {
 
 
     //Zmienne dla rankigu
-   String user1;
+  // String user1;
 
+    RecyclerView mRecyclerView;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,65 @@ public class RankingActivity extends AppCompatActivity {
         // Task wykonuje zapytanie do bazy
         new rankTask().execute();
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        adapter = new MyAdapter(this);
+        mRecyclerView.setAdapter(adapter);
+
+        RankingClass Rank = new RankingClass("lvl", 1);
+        Rank.save();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        adapter.loadData(this);
+        adapter.notifyDataSetChanged();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTextView;
+        TextView editionTextView;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            titleTextView = (TextView) itemView.findViewById(R.id.title);
+            editionTextView = (TextView) itemView.findViewById(R.id.edition);
+        }
+    }
+
+    public static class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+        List<RankingClass> dataArray;
+
+        public MyAdapter(Context context) {
+            loadData(context);
+        }
+
+        public void loadData(Context context) {
+            //TODO: odczytać zawartość pliku
+            dataArray = RankingClass.listAll(RankingClass.class);
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row, parent, false);
+
+            return new MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            //TODO uzupełnić dane
+            holder.titleTextView.setText(dataArray.get(position).login);
+            holder.editionTextView.setText(String.valueOf(dataArray.get(position).lvl));
+        }
+
+        @Override
+        public int getItemCount() {
+            return dataArray.size();
+        }
     }
 
 
