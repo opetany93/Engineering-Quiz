@@ -20,25 +20,29 @@
         android:name="com.orm.SugarApp">
 
 
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/noTitleBar" />
+        <activity android:name=".LoginActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/noTitleBar" />
 
-        <activity
-            android:name=".RegistrationActivity"
-            android:label="Registration"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MenuActivity"
-             android:screenOrientation="portrait" />
+        <activity android:name=".RegistrationActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/noTitleBar" />
+
         <activity android:name=".QuizActivity"
-            android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:theme="@style/noTitleBar" />
+
+        <activity android:name=".MenuActivity"
+                  android:screenOrientation="portrait" />
+
         <activity android:name=".ResultActivity"
-            android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".lvlUP"
-            android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".RankingActivity"
-            android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"/>
 
         <activity
             android:name=".SplashScreen"

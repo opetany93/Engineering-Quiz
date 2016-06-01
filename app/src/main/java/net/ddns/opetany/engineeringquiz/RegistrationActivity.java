@@ -1,6 +1,8 @@
 package net.ddns.opetany.engineeringquiz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -19,6 +21,10 @@ public class RegistrationActivity extends NetworkActivity
     //zmienne do loginu i hasla
     protected String login;
     protected String password;
+    protected String re_password;
+
+    //objekt SharedPreferences do zapamiętania, że użytkownik jest zalogowany
+    SharedPreferences loginSharedPref;
 
     //objekty do połączenia
     private ProgressBar progressBar;
@@ -39,6 +45,9 @@ public class RegistrationActivity extends NetworkActivity
         login_object = (EditText) findViewById (R.id.registration_login_EditText);
         pass_object = (EditText) findViewById (R.id.registration_password_EditText);
         re_pass_object = (EditText) findViewById (R.id.rePassword_EditText);
+
+        //pobierz SharedPreferences
+        loginSharedPref = getSharedPreferences(getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
     }
 
     // =======================================================================================================================
@@ -50,7 +59,7 @@ public class RegistrationActivity extends NetworkActivity
         //pobierz tekst z pól do zmiennych
         login = login_object.getText().toString();
         password = pass_object.getText().toString ();
-        String re_password = re_pass_object.getText().toString();
+        re_password = re_pass_object.getText().toString();
 
         if( (password.length() <= 20) && (password.length() >= 6) && (login.length() >= 4) && (login.length() <= 15) )
         {
@@ -69,6 +78,12 @@ public class RegistrationActivity extends NetworkActivity
                         if ( answer.success == 1 )
                         {
                             Intent intent = new Intent(RegistrationActivity.this, MenuActivity.class);
+
+                            SharedPreferences.Editor editor;
+                            editor = loginSharedPref.edit();
+                            editor.putBoolean("logged", true);
+                            editor.putString("login", login);
+                            editor.apply();
 
                             startActivity(intent);
                             finish();

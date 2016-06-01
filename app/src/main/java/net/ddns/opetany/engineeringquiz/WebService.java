@@ -12,9 +12,13 @@ public interface WebService
 {
     @FormUrlEncoded
     @POST("login.php")
-    Call<LoginRegisterJSON> Login(@Field("login") String first, @Field("password") String last);
+    Call<LoginRegisterJSON> Login(@Field("login") String login, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("create_user.php")
-    Call<LoginRegisterJSON> Register(@Field("login") String first, @Field("password") String last);
+    Call<LoginRegisterJSON> Register(@Field("login") String login, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("question.php")
+    Call<QuestionJSON> Question(@Field("lvl") int lvl, @Field("id") int id);
 }

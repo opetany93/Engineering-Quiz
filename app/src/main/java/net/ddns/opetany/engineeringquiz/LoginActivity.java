@@ -71,11 +71,6 @@ public class LoginActivity extends NetworkActivity
         login = login_object.getText().toString();
         password = pass_object.getText().toString();
 
-        SharedPreferences.Editor edit;
-        edit = loginSharedPref.edit();
-        edit.putString("login", login);
-        edit.apply();
-
         final Call<LoginRegisterJSON> loginCall = getWebService().Login(login, password);
 
         loginCall.enqueue(new ApiClient.MyResponse<LoginRegisterJSON>()
@@ -94,6 +89,7 @@ public class LoginActivity extends NetworkActivity
                           SharedPreferences.Editor editor;
                           editor = loginSharedPref.edit();
                           editor.putBoolean("logged", true);
+                          editor.putString("login", login);
                           editor.apply();
                       }
 
