@@ -8,8 +8,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import retrofit2.Call;
+
+/**
+ * Created by Arkadiusz Bochyński on 15.03.2016.
+ */
 
 public class RegistrationActivity extends NetworkActivity
 {
@@ -23,6 +26,7 @@ public class RegistrationActivity extends NetworkActivity
     private EditText pass_object;
     private EditText re_pass_object;
 
+    // =======================================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,6 +41,7 @@ public class RegistrationActivity extends NetworkActivity
         re_pass_object = (EditText) findViewById (R.id.rePassword_EditText);
     }
 
+    // =======================================================================================================================
     public void registrationDoneButton(View view)
     {
         //pokaż progressBar
@@ -51,10 +56,7 @@ public class RegistrationActivity extends NetworkActivity
         {
             if ( password.equals(re_password) )
             {
-                // tworzymy klienta
-                WebService webService = getRetrofit().create(WebService.class);
-
-                final Call<LoginRegisterJSON> registerCall = webService.Register(login, password);
+                final Call<LoginRegisterJSON> registerCall = getWebService().Register(login, password);
 
                 registerCall.enqueue(new ApiClient.MyResponse<LoginRegisterJSON>()
                 {

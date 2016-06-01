@@ -9,8 +9,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import retrofit2.Call;
+
+/**
+ * Created by Arkadiusz Bochyński on 14.03.2016.
+ */
 
 public class LoginActivity extends NetworkActivity
 {
@@ -73,10 +76,7 @@ public class LoginActivity extends NetworkActivity
         edit.putString("login", login);
         edit.apply();
 
-        // tworzymy klienta
-        WebService webService = getRetrofit().create(WebService.class);
-
-        final Call<LoginRegisterJSON> loginCall = webService.Login(login, password);
+        final Call<LoginRegisterJSON> loginCall = getWebService().Login(login, password);
 
         loginCall.enqueue(new ApiClient.MyResponse<LoginRegisterJSON>()
           {
@@ -121,6 +121,9 @@ public class LoginActivity extends NetworkActivity
               @Override
               void onFail(Throwable t)
               {
+                  //schowaj progressBar
+                  progressBar.setVisibility(ProgressBar.INVISIBLE);
+
                   CharSequence text = getString(R.string.noInternetConnection);
                   Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
               }

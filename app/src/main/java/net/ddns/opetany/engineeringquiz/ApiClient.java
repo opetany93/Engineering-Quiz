@@ -13,27 +13,39 @@ public class ApiClient
 {
     //adres serwera do obsługi bazy MySQL
     static final String server_URL = "http://opetany.ddns.net/android_mysql_connect/";
+    public Retrofit retrofit;
+    public WebService webService;
+    public static ApiClient ourInstance = new ApiClient();
 
-   public static ApiClient ourInstance = new ApiClient();
-
+    // =======================================================================================================================
     public static ApiClient getInstance()
     {
         return ourInstance;
     }
 
+    // =======================================================================================================================
     public ApiClient()
     {
         // adres API
-        Retrofit retrofit = new Retrofit.Builder()
-                // adres API
-                .baseUrl(server_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(server_URL).addConverterFactory(GsonConverterFactory.create()).build();    // adres API
+
+        webService = retrofit.create(WebService.class);
     }
 
+    // =======================================================================================================================
     public static Retrofit getRetrofit()
     {
-       return getInstance().getRetrofit();
+       return getInstance().retrofit;
     }
 
+    // =======================================================================================================================
+    public static WebService getWebService()
+    {
+        return getInstance().webService;
+    }
+
+    // =======================================================================================================================
     public static abstract class MyResponse<T> implements Callback<T>
     {
         @Override
@@ -58,21 +70,5 @@ public class ApiClient
 
         abstract void onSuccess(T model);
         abstract void onFail(Throwable t);
-    }
-
-    public abstract static class MyLoginResponse<T> extends MyResponse<T>
-    {
-        NetworkActivity networkActivity;
-
-        public MyLoginResponse(NetworkActivity loginActivity)
-        {
-            this.networkActivity = loginActivity;
-        }
-
-        @Override
-        void onFail(Throwable t)
-        {
-            networkActivity.showError(t.getMessage());
-        }
     }
 }

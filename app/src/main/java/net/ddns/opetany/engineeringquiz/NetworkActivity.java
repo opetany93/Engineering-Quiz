@@ -10,13 +10,22 @@ import retrofit2.Retrofit;
  */
 public class NetworkActivity extends AppCompatActivity
 {
+    // =======================================================================================================================
     public Retrofit getRetrofit()
     {
         return ApiClient.getRetrofit();
     }
 
+    // =======================================================================================================================
+    public static WebService getWebService()
+    {
+        return ApiClient.getWebService();
+    }
+
+    // =======================================================================================================================
     public void showError(String text)
     {
         Toast.makeText(this, text, Toast.LENGTH_SHORT ).show();
     }
+    // =======================================================================================================================
 }
