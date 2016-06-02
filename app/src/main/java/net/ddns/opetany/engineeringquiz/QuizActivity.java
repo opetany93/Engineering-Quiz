@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
+
 import java.util.Random;
 import retrofit2.Call;
 
@@ -98,12 +101,6 @@ public class QuizActivity extends NetworkActivity {
         timDown.start();    //Wystartowanie timera odmierzajacego czas na odp
     }
 
-
-    // metoda do wywoływania metody questionTask
-    private void getQuestions(){
-
-
-    }
 
 
 
