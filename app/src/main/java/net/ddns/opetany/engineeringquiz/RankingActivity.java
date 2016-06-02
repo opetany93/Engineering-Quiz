@@ -44,35 +44,33 @@ import retrofit2.http.POST;
 import static net.ddns.opetany.engineeringquiz.ApiClient.getWebService;
 
 public class RankingActivity extends AppCompatActivity {
-
-    //adres serwera do obsługi bazy MySQL
-    static final String URL_rank = "http://opetany.ddns.net/android_mysql_connect/rank.PHP";
-
-    //objekt JSONA
-    private JSONObject jsonObject;
-
-    //Zmienne dla rankigu
-   String user1;
+    
 
     RecyclerView mRecyclerView;
     MyAdapter adapter;
+
+    TextView  userLoginTextView;
+
+    Intent intent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
 
-        // Task wykonuje zapytanie do bazy
-        new rankTask().execute();
 
+        userLoginTextView = (TextView) findViewById(R.id.userLoginTextView);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         adapter = new MyAdapter(this);
         mRecyclerView.setAdapter(adapter);
 
-        RankingClass Rank = new RankingClass("lvl", 1);
-        Rank.save();
+        RankingClass Rank = new RankingClass();
+        Rank.deleteAll(RankingClass.class);                          //Czyszcznie bazy
+
+        // Task wykonuje zapytanie do bazy
+        new rankTask().execute();
     }
 
     @Override
@@ -131,7 +129,7 @@ public class RankingActivity extends AppCompatActivity {
     // wyslanie wyniku do bazy danych
     private class rankTask extends AsyncTask<Void, Void, Void> {
         int flag_post = 1;
-        String parameters = "flag=" + flag_post;
+
 
         @Override
         protected void onPreExecute() {
@@ -147,8 +145,12 @@ public class RankingActivity extends AppCompatActivity {
 
                 @Override
                 void onSuccess(List<RankJSON> answer) {
-                    user1 = answer.get(0).login;
-                    Toast.makeText(getApplicationContext(), user1 , Toast.LENGTH_SHORT).show();
+                    for( int i =0; i<3 ; i++){
+                        RankingClass Rank = new RankingClass(answer.get(i).login,answer.get(i).result);
+                        Rank.save();
+
+                    }
+
                 }
 
                 @Override
