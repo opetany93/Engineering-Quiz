@@ -48,5 +48,7 @@
     <string name="menuButton">MENU</string>
     <string name="rangingButton">RANK</string>
 
+    //result activity XML
+    <string name="record">New Record!</string>
 
 </resources>

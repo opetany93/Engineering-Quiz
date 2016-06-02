@@ -2,13 +2,9 @@ package net.ddns.opetany.engineeringquiz;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,26 +12,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Random;
+import retrofit2.Call;
 
 
-public class QuizActivity extends AppCompatActivity {
-
-    //adres pliku php do obsługi bazy MySQL
-    static final String URL_question = "http://opetany.ddns.net/android_mysql_connect/question.php";
-
-   // private ProgressBar progressBar;
-
-    private JSONObject jsonObject;
+public class QuizActivity extends NetworkActivity {
 
     TextView QuestionTextView;
     TextView lvlCntView;
@@ -64,14 +47,11 @@ public class QuizActivity extends AppCompatActivity {
     //flaga sygnaluzujaca lvl UP
     int lvlUP_flag =0;
 
-    //Stringi na odpowiedzi
-    String ask1;
-    String ask2;
-    String ask3;
-    String ask4;
+    //flaga sygnalizujaca lvl UP -> Do pobierania pytań
+    int getQuestionFlag;
 
-    //String zapytania
-    String question;
+    //Intent
+    Intent intent = new Intent();
 
     CountDownTimer timDown = new CountDownTimer(10000,100){
 
@@ -95,6 +75,7 @@ public class QuizActivity extends AppCompatActivity {
 
         questionNumber = getIntent().getIntExtra("QESTION_NUMBER", 1);
         lvlCntInt = getIntent().getIntExtra("LVL_CNT_INT", 1);
+        getQuestionFlag = getIntent().getIntExtra("GET_QUESTION_FLAG" , 1);
 
         QuestionTextView = (TextView) findViewById(R.id.QuestionTextView);
         Ask1Button = (Button) findViewById(R.id.Ask1Button);
@@ -105,15 +86,23 @@ public class QuizActivity extends AppCompatActivity {
         CountDownProgressBar2 = (ProgressBar) findViewById(R.id.CountDownProgressBar2);
 
         // Task wykonuje zapytanie do bazy
-        new questionTask().execute();
+        if(getQuestionFlag == 1){
+            getQuestionFlag = 0;
+            //Zerowanie flagi GET Question , odpowiada za wywołanie zapytania do bazy SQL o nowe pytania
+            intent.putExtra("GET_QUESTION_FLAG",0);
+            new questionTask().execute();
+        }
+
 
         lvlCntView.setText("LvL " + lvlCntInt);
 
         progress = 10000;   //Wartosc do odliczania czasu na odp
 
         timDown.start();    //Wystartowanie timera odmierzajacego czas na odp
-
     }
+
+
+
 
     private class questionTask extends AsyncTask<Void, Void, Void> {
 
@@ -124,67 +113,53 @@ public class QuizActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Intent intent = new Intent();
+
+            //Tworzenie tablicy do zapytań
+            int id_question[] = new int[3];
 
             //LOSOWANIE ID PYTANIA
             Random rand = new Random();
-            id_question = rand.nextInt(7);
-           //Sprawdzanie czy ID się nie powtórzyło
+            id_question[0] = rand.nextInt(7);
+            id_question[1] = rand.nextInt(7);
+            id_question[2] = rand.nextInt(7);
 
-            k = getIntent().getIntExtra("CNT", 0);                          //Pobieranie k, jeżeli nie ma nic w CNT to k=0
+            //Powtórzenie losowania jeżeli id się powtórrzylo wcześniej
+            while(id_question[0] == id_question[1]){
+                id_question[1] = rand.nextInt(7);
+            }
 
-            if(k == 0) intent.putExtra("ID0", id_question);                 //Jeżeli k =0 to zapisz id w ID0
-            if(k == 1){
-                while (id_question == getIntent().getIntExtra("ID0",1)){   //Jeżeli k = 1 ( drugie pyt_ to losuuj do puki bedzie unikatowe i zapisz do ID1
-                    id_question = rand.nextInt(7);
+            //Powtórzenie losowania jeżeli id się powtórrzylo wcześniej
+            while(id_question[0] == id_question[2] && id_question[1] == id_question[2]){
+                id_question[2] = rand.nextInt(7);
+            }
+
+            // =============================== dodany/zmieniony przeze mnie kod na retrofit'a =================================
+
+            final Call<QuestionJSON> questionCall = getWebService().Question(lvlCntInt, id_question[0] , id_question[1] , id_question[2]);
+
+            questionCall.enqueue(new ApiClient.MyResponse<QuestionJSON>()
+            {
+                @Override
+                void onSuccess(QuestionJSON answer)
+                {
+                    //Wyświetlanie pobranych wartości
+                    QuestionTextView.setText(answer.question);
+                    Ask1Button.setText(answer.ans1);
+                    Ask2Button.setText(answer.ans2);
+                    Ask3Button.setText(answer.ans3);
+                    Ask4Button.setText(answer.ans4);
+
+                    good_ans = answer.good_ans;
                 }
-                intent.putExtra("ID1", id_question);
-            }
-            if(k == 2){                                                      //Jeżeli k = 2 ( trzecie pyt_ to  losuuj do puki bedzie unikatowe
-                while ((id_question == getIntent().getIntExtra("ID0",1)) && (id_question == getIntent().getIntExtra("ID1",1))){
-                    id_question = rand.nextInt(7);
+
+                @Override
+                void onFail(Throwable t)
+                {
+                    CharSequence text = getString(R.string.noInternetConnection);
+                    Toast.makeText(QuizActivity.this, text, Toast.LENGTH_SHORT).show();
                 }
-            }
-            k++;
-            if(k == 3 ) k = 0;                                                 //zabezpieczenie przed wyjsciem poza zakres
-            intent.putExtra("CNT", k);                                         // zapisz do CNT aktualnej wartości k
-
-            String parameters = "lvl=" + lvlCntInt + "&id=" + id_question;     //wypełnienie zapytania do post
-
-            try {
-                //Utworzenie połączenia
-                URL url = new URL(URL_question);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoOutput(true);
-                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                connection.connect();
-
-                //wysłanie zapytania POST
-                OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-                request.write(parameters);
-                request.flush();
-                request.close();
-
-                //odczyt odpowiedz od pliku question.php
-                String line;
-                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
-
-                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
-                jsonObject = new JSONObject(stringBuilder.toString());
-
-                inputStreamReader.close();
-                bufferedReader.close();
-
-                connection.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            });
+            // ================================================================================================================
 
             return null;
         }
@@ -192,89 +167,61 @@ public class QuizActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
 
-            try {
-
-                //elementy z tablicy JSON'a do zmiennej całkowitej
-                question = jsonObject.getString("question");
-                ask1 = jsonObject.getString("ans1");
-                ask2 = jsonObject.getString("ans2");
-                ask3 = jsonObject.getString("ans3");
-                ask4 = jsonObject.getString("ans4");
-                good_ans = jsonObject.getInt("good_ans");
-
-                //Wyświetlanie pobranych wartości
-                QuestionTextView.setText(question);
-                Ask1Button.setText(ask1);
-                Ask2Button.setText(ask2);
-                Ask3Button.setText(ask3);
-                Ask4Button.setText(ask4);
-
-                } catch (JSONException e) {
-                e.printStackTrace();
-
-            }
         }
+    }
+    // -----------------------------------------------------------> Poniżej sprawdzanie poprawności
 
+    public void
+    checkAsk(Integer idAsk) {
+
+        timDown.cancel();           //wylaczenie timera odliczajacego czas na odp
+
+        if (idAsk == good_ans) {
+            // Co trzecie pytanie zwiększamy lvl
+            if((questionNumber % 3) == 0) {
+                lvlCntInt++;
+                intent.putExtra("CNT", 0);
+                // Ustawianie flagi GET QUESTION, gdy jest ustawiona to wysyłamy zapytnie o nowe pytania
+                intent.putExtra("GET_QUESTION_FLAG",1);
+                lvlUP_flag = 1;
+            }
+            questionNumber++;
+
+            if(lvlUP_flag == 0){
+                intent = new Intent(this, QuizActivity.class);
+            }
+
+            if(lvlUP_flag == 1){
+                lvlUP_flag = 0;
+                intent = new Intent(this, lvlUP.class);
+            }
+
+            intent.putExtra("QESTION_NUMBER", questionNumber);
+            intent.putExtra("LVL_CNT_INT", lvlCntInt);
+
+            Toast.makeText(getApplicationContext(), "GOOD!", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+            finish();
+
+        } else {
+            intent = new Intent(this, ResultActivity.class);
+            intent.putExtra("LVL_CNT_INT", lvlCntInt);
+            startActivity(intent);
+            finish();
+        }
     }
 
-        // -----------------------------------------------------------> Poniżej sprawdzanie poprawności
-
-        public void
-        checkAsk(Integer idAsk) {
-
-            timDown.cancel();           //wylaczenie timera odliczajacego czas na odp
-
-            Intent intent = new Intent();
-            if (idAsk == good_ans) {
-                // Co trzecie pytanie zwiększamy lvl
-                if((questionNumber % 3) == 0) {
-                    lvlCntInt++;
-                    intent.putExtra("CNT", 0);
-
-                    lvlUP_flag = 1;
-                }
-                questionNumber++;
-
-                if(lvlUP_flag == 0){
-                    intent = new Intent(this, QuizActivity.class);
-                }
-
-                if(lvlUP_flag == 1){
-                    lvlUP_flag = 0;
-                    intent = new Intent(this, lvlUP.class);
-                }
-
-                intent.putExtra("QESTION_NUMBER", questionNumber);
-                intent.putExtra("LVL_CNT_INT", lvlCntInt);
-
-                Toast.makeText(getApplicationContext(), "GOOD!", Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-                finish();
-
-            } else {
-                intent = new Intent(this, ResultActivity.class);
-                intent.putExtra("LVL_CNT_INT", lvlCntInt);
-                startActivity(intent);
-                finish();
-            }
-        }
-
     //-------------------------------------------------------------> Obsluga przycisków
-
-        public void Ask1ButtonClick(View view) {
-            checkAsk(1);
-        }
-
-        public void Ask2ButtonClick(View view) {
-            checkAsk(2);
-        }
-
-        public void Ask3ButtonClick(View view) {
-            checkAsk(3);
-        }
-
-        public void Ask4ButtonClick(View view) {
-            checkAsk(4);
-        }
-
+    public void Ask1ButtonClick(View view) {
+        checkAsk(1);
+    }
+    public void Ask2ButtonClick(View view) {
+        checkAsk(2);
+    }
+    public void Ask3ButtonClick(View view) {
+        checkAsk(3);
+    }
+    public void Ask4ButtonClick(View view) {
+        checkAsk(4);
+    }
 }

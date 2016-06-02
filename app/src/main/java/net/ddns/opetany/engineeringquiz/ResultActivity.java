@@ -29,11 +29,15 @@ public class ResultActivity extends AppCompatActivity {
     TextView lvlCntView;
     int lvlCntInt;
 
+    //zmienne do zapytania dp PHP
     private String login;
-    private String parameters;
+    public String parameters;
 
     //objekt SharedPreferences do zapamiętania nazwy użytkownika
     SharedPreferences rememberUserName;
+
+    //objekt JSONA
+    private JSONObject jsonObject;
 
 
     @Override
@@ -49,13 +53,17 @@ public class ResultActivity extends AppCompatActivity {
         lvlCntInt = getIntent().getIntExtra("LVL_CNT_INT", 1);
         lvlCntView.setText("Lvl " + lvlCntInt);
 
-        //Pobieranie z SharedPref
+        //Pobieranie z SharedPref nazwy zalogowanego uzyt
         login = rememberUserName.getString("login" , "Android");
+
+        //Zapytanie POST do result.php
+        parameters = "lvl=" + lvlCntInt + "&user=" + login;
 
         // wykonanie wysłania wyniku do bazy danych
         new resultTask().execute();
     }
 
+    //rekacja na wcisniecie menu button
     public void menuButtonOnClick(View view)
     {
         Intent intent = new Intent(ResultActivity.this, MenuActivity.class);
@@ -64,7 +72,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
-
+    // wyslanie wyniku do bazy danych
     private class resultTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -74,11 +82,6 @@ public class ResultActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
-            //Zapytanie POST do result.php
-            parameters = "lvl=" + lvlCntInt + "&user=" + login;
-            //Toast.makeText(getApplicationContext(), parameters, Toast.LENGTH_SHORT).show();
-            // TEN TOAST WYKRACZA APKĘ
 
             try {
                 //Utworzenie połączenia
@@ -94,41 +97,49 @@ public class ResultActivity extends AppCompatActivity {
                 request.flush();
                 request.close();
 
-                //odczyt odpowiedz
-//                String line;
-//                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
-//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//                StringBuilder stringBuilder = new StringBuilder();
-//
-//                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
-//
-//                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
-//                jsonObject = new JSONObject(stringBuilder.toString());
-//
-//                inputStreamReader.close();
-//                bufferedReader.close();
 
-                connection.disconnect();
+                                                                            //NOTATKI PROGRAMISTY: Całe wysłanie zapytanie do bazy nie działa bez poniższych lini
+                //odczyt odpowiedz
+                String line;
+                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
+
+                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
+                jsonObject = new JSONObject(stringBuilder.toString());
+
+                inputStreamReader.close();
+                bufferedReader.close();
+
+                connection.disconnect();       //zamknięcie connectoin
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
-//             catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+              catch (JSONException e) {
+                e.printStackTrace();
+
+           }
             return null;
         }
 
-//        @Override
-//        protected void onPostExecute(Void result) {
-//
-//            try {
-//
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//
-//            }
-//        }
+        @Override
+        protected void onPostExecute(Void result) {
+
+            try {
+                //sprawdzenie czy padl rekord
+                if((jsonObject.getInt("message")) == 1){            // wartosc 1 oznacza nowy rekord
+                    Toast.makeText(getApplicationContext(), getString(R.string.record) , Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
 
     }
 

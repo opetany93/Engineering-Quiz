@@ -9,12 +9,23 @@ import android.view.View;
 
 public class MenuActivity extends AppCompatActivity
 {
+    SharedPreferences loginSharedPref;
+    String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        //pobierz SharedPreferences
+        loginSharedPref = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key), Context.MODE_PRIVATE);
+
+        if(loginSharedPref.contains("login"))
+        {
+            login = loginSharedPref.getString("login", "guest" );
+            if( getSupportActionBar() != null)  getSupportActionBar().setTitle("Zalogowany jako: " + login);
+        }
     }
 
     public void StartQuiz(View view)
@@ -26,19 +37,20 @@ public class MenuActivity extends AppCompatActivity
 
     public void LogOut(View view)
     {
-        //pobierz SharedPreferences
-        SharedPreferences rememberMeSharedPref = getSharedPreferences ( getString(R.string.loginActivity_preference_file_key),
-                                                                        Context.MODE_PRIVATE);
         SharedPreferences.Editor editor;
-        editor = rememberMeSharedPref.edit ();
+        editor = loginSharedPref.edit ();
         editor.putBoolean ("logged", false);
+        editor.remove("login");
         editor.apply ();
-
 
         Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
-
+    public void Ranking(View view)
+    {
+        Intent intent = new Intent(MenuActivity.this, RankingActivity.class);
+        startActivity(intent);
+    }
 }

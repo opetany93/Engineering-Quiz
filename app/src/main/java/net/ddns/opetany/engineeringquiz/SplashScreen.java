@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+/**
+ * Created by Arkadiusz Bochyński on 16.05.2016.
+ */
+
 public class SplashScreen extends AppCompatActivity
 {
     private static final int CZAS = 2000;

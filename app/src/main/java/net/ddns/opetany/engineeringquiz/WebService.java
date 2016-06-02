@@ -1,5 +1,7 @@
 package net.ddns.opetany.engineeringquiz;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -12,9 +14,17 @@ public interface WebService
 {
     @FormUrlEncoded
     @POST("login.php")
-    Call<LoginRegisterJSON> Login(@Field("login") String first, @Field("password") String last);
+    Call<LoginRegisterJSON> Login(@Field("login") String login, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("create_user.php")
-    Call<LoginRegisterJSON> Register(@Field("login") String first, @Field("password") String last);
+    Call<LoginRegisterJSON> Register(@Field("login") String login, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("question.php")
+    Call<QuestionJSON> Question(@Field("lvl") int lvl, @Field("id0") int id0 , @Field("id1") int id1 , @Field("id2") int id2);
+
+    @FormUrlEncoded
+    @POST("rank.php")
+    Call<List<RankJSON>> Rank(@Field("flag") int flag);
 }
