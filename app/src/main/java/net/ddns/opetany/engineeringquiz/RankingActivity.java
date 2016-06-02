@@ -38,7 +38,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.POST;
+
+import static net.ddns.opetany.engineeringquiz.ApiClient.getWebService;
 
 public class RankingActivity extends AppCompatActivity {
 
@@ -49,7 +52,7 @@ public class RankingActivity extends AppCompatActivity {
     private JSONObject jsonObject;
 
     //Zmienne dla rankigu
-  // String user1;
+   String user1;
 
     RecyclerView mRecyclerView;
     MyAdapter adapter;
@@ -138,60 +141,26 @@ public class RankingActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            try {
-                //Utworzenie połączenia
-                URL url = new URL(URL_rank);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoOutput(true);
-                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                connection.connect();
+            final Call<List<RankJSON>> rankCall = getWebService().Rank(flag_post);
 
-                //wysłanie zapytania POST
-                OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-                request.write(parameters);
-                request.flush();
-                request.close();
+            rankCall.enqueue(new ApiClient.MyResponse<List<RankJSON>>() {
 
+                @Override
+                void onSuccess(List<RankJSON> answer) {
+                    user1 = answer.get(0).login;
+                    Toast.makeText(getApplicationContext(), user1 , Toast.LENGTH_SHORT).show();
+                }
 
-                //NOTATKI PROGRAMISTY: Całe wysłanie zapytanie do bazy nie działa bez poniższych lini
-                //odczyt odpowiedz
-                String line;
-                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
-
-                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
-                jsonObject = new JSONObject(stringBuilder.toString());
-
-                inputStreamReader.close();
-                bufferedReader.close();
-
-                connection.disconnect();       //zamknięcie connectoin
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-            catch (JSONException e) {
-                e.printStackTrace();
-
-            }
+                @Override
+                void onFail(Throwable t) {
+                    CharSequence text = getString(R.string.noInternetConnection);
+                    Toast.makeText(RankingActivity.this, text, Toast.LENGTH_SHORT).show();
+                }
+            });
             return null;
         }
 
-  //      @Override
-  //      protected void onPostExecute(Void result) {
 
- //           try {
-                //user1 = jsonObject.getString("login");
-
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-
-
- //       }
 
     }
 
