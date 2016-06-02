@@ -22,13 +22,9 @@ public interface WebService
 
     @FormUrlEncoded
     @POST("question.php")
-<<<<<<< HEAD
-    Call<QuestionJSON> Question(@Field("lvl") int lvl, @Field("id0") int id0 , @Field("id1") int id1 , @Field("id2") int id2);
+    Call<List<QuestionJSON>> Question(@Field("lvl") int lvl, @Field("id0") int id0 , @Field("id1") int id1 , @Field("id2") int id2);
 
     @FormUrlEncoded
     @POST("rank.php")
     Call<List<RankJSON>> Rank(@Field("flag") int flag);
-=======
-    Call<QuestionJSON> Question(@Field("lvl") int lvl, @Field("id") int id);
->>>>>>> parent of 77cd1c0... add xml files
 }

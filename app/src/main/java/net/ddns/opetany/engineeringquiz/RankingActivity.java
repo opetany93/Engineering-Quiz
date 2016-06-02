@@ -27,7 +27,7 @@ public class RankingActivity extends AppCompatActivity {
     private JSONObject jsonObject;
 
     //Zmienne dla rankigu
-     String user1,user2;
+    String user1,user2;
 
     RecyclerView mRecyclerView;
     MyAdapter adapter;
@@ -121,7 +121,7 @@ public class RankingActivity extends AppCompatActivity {
 
                 @Override
                 void onSuccess(List<RankJSON> answer) {
-                   user1 = answer.get(0).login;
+                    user1 = answer.get(0).login;
                     Toast.makeText(getApplicationContext(), user1 , Toast.LENGTH_SHORT).show();
                 }
 
