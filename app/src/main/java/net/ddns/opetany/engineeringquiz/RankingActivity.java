@@ -44,16 +44,7 @@ import retrofit2.http.POST;
 import static net.ddns.opetany.engineeringquiz.ApiClient.getWebService;
 
 public class RankingActivity extends AppCompatActivity {
-
-    //adres serwera do obsługi bazy MySQL
-    static final String URL_rank = "http://opetany.ddns.net/android_mysql_connect/rank.PHP";
-
-    //objekt JSONA
-    private JSONObject jsonObject;
-
-    //Zmienne dla rankigu
-    String users[] = new String[10];
-    int results[] = new int[10];
+    
 
     RecyclerView mRecyclerView;
     MyAdapter adapter;
