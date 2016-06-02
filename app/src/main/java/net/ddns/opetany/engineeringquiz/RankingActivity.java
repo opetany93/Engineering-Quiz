@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Message;
+import android.service.notification.NotificationListenerService;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,35 +45,32 @@ import retrofit2.http.POST;
 import static net.ddns.opetany.engineeringquiz.ApiClient.getWebService;
 
 public class RankingActivity extends AppCompatActivity {
-    
+
 
     RecyclerView mRecyclerView;
     MyAdapter adapter;
 
-    TextView  userLoginTextView;
-
-    Intent intent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
 
+        RankingClass Rank = new RankingClass();
+        Rank.deleteAll(RankingClass.class);                          //Czyszcznie bazy
 
-        userLoginTextView = (TextView) findViewById(R.id.userLoginTextView);
+        // Task wykonuje zapytanie do bazy
+        rankTask();
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         adapter = new MyAdapter(this);
         mRecyclerView.setAdapter(adapter);
 
-        RankingClass Rank = new RankingClass();
-        Rank.deleteAll(RankingClass.class);                          //Czyszcznie bazy
 
-        // Task wykonuje zapytanie do bazy
-        new rankTask().execute();
     }
-
+//=======================================================================================
     @Override
     protected void onResume() {
         super.onResume();
@@ -127,17 +125,9 @@ public class RankingActivity extends AppCompatActivity {
 
 
     // wyslanie wyniku do bazy danych
-    private class rankTask extends AsyncTask<Void, Void, Void> {
+    private void rankTask(){
         int flag_post = 1;
 
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
 
             final Call<List<RankJSON>> rankCall = getWebService().Rank(flag_post);
 
@@ -145,28 +135,23 @@ public class RankingActivity extends AppCompatActivity {
 
                 @Override
                 void onSuccess(List<RankJSON> answer) {
-                    for( int i =0; i<3 ; i++){
-                        RankingClass Rank = new RankingClass(answer.get(i).login,answer.get(i).result);
-                        Rank.save();
 
+                    //Zapisuje do bazy 10 najlepszych
+                    for( int i =0; i<10 ; i++){
+                       RankingClass Rank1 = new RankingClass(answer.get(i).login , answer.get(i).result);
+                        Rank1.save();
                     }
-
                 }
 
                 @Override
-                void onFail(Throwable t) {
-                    CharSequence text = getString(R.string.noInternetConnection);
-                    Toast.makeText(RankingActivity.this, text, Toast.LENGTH_SHORT).show();
+                void onFail(Throwable t){
+                CharSequence text = getString(R.string.noInternetConnection);
+                Toast.makeText(RankingActivity.this, text, Toast.LENGTH_SHORT).show();
+
                 }
-            });
-            return null;
-        }
 
-
+             });
 
     }
-
-
 }
-
 

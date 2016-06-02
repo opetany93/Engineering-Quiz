@@ -30,16 +30,17 @@ public class QuizActivity extends NetworkActivity {
     ProgressBar CountDownProgressBar2;
     int progress;
 
+    //Tablice do wyświetlania pytań
+   String question[] = new String[3];
+   String ask1[] = new String[3];
+   String ask2[] = new String[3];
+   String ask3[] = new String[3];
+   String ask4[] = new String[3];
+   int good_ansTab[] = new int[3];
+
     //zmienna do obliczania lvl
     int questionNumber = 1;
     int lvlCntInt = 1;
-
-    //wskaznik na prawidlowa odp
-    int good_ans;
-
-    //zmienne do losowania ID pytania
-    int id_question;
-    int k=0;
 
     int ask;
 
@@ -95,18 +96,18 @@ public class QuizActivity extends NetworkActivity {
 
         lvlCntView.setText("LvL " + lvlCntInt);
 
+        //wypelnienie pytań
+        Toast.makeText(getApplicationContext(), question[0], Toast.LENGTH_SHORT).show();
+        QuestionTextView.setText(question[0]);
+        Ask1Button.setText(ask1[0]);
+        Ask2Button.setText(ask2[0]);
+        Ask3Button.setText(ask3[0]);
+        Ask4Button.setText(ask4[0]);
+
         progress = 10000;   //Wartosc do odliczania czasu na odp
 
         timDown.start();    //Wystartowanie timera odmierzajacego czas na odp
     }
-
-
-    // metoda do wywoływania metody questionTask
-    private void getQuestions(){
-
-
-    }
-
 
 
     private class questionTask extends AsyncTask<Void, Void, Void> {
@@ -148,13 +149,17 @@ public class QuizActivity extends NetworkActivity {
                 void onSuccess(List<QuestionJSON> answer)
                 {
                     //Wyświetlanie pobranych wartości
-                    QuestionTextView.setText(answer.get(0).question);
-                    Ask1Button.setText(answer.get(0).ans1);
-                    Ask2Button.setText(answer.get(0).ans2);
-                    Ask3Button.setText(answer.get(0).ans3);
-                    Ask4Button.setText(answer.get(0).ans4);
+                    for (int i=0 ; i<3 ; i++) {
+                        question[i] = answer.get(i).question;
 
-                    good_ans = answer.get(0).good_ans;
+                        ask1[i] = answer.get(i).ans1;
+                        ask2[i] = answer.get(i).ans2;
+                        ask3[i] = answer.get(i).ans3;
+                        ask4[i] = answer.get(i).ans4;
+
+                        good_ansTab[i] = answer.get(i).good_ans;
+                    }
+
                 }
 
                 @Override
@@ -163,6 +168,7 @@ public class QuizActivity extends NetworkActivity {
                     CharSequence text = getString(R.string.noInternetConnection);
                     Toast.makeText(QuizActivity.this, text, Toast.LENGTH_SHORT).show();
                 }
+
             });
             // ================================================================================================================
 
@@ -181,7 +187,7 @@ public class QuizActivity extends NetworkActivity {
 
         timDown.cancel();           //wylaczenie timera odliczajacego czas na odp
 
-        if (idAsk == good_ans) {
+        if (idAsk == good_ansTab[0]) {
             // Co trzecie pytanie zwiększamy lvl
             if((questionNumber % 3) == 0) {
                 lvlCntInt++;
