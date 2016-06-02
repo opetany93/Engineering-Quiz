@@ -47,9 +47,6 @@ public class QuizActivity extends NetworkActivity {
     //flaga sygnaluzujaca lvl UP
     int lvlUP_flag =0;
 
-    //flaga sygnalizujaca lvl UP -> Do pobierania pytań
-    int getQuestionFlag;
-
     //Intent
     Intent intent = new Intent();
 
@@ -75,7 +72,6 @@ public class QuizActivity extends NetworkActivity {
 
         questionNumber = getIntent().getIntExtra("QESTION_NUMBER", 1);
         lvlCntInt = getIntent().getIntExtra("LVL_CNT_INT", 1);
-        getQuestionFlag = getIntent().getIntExtra("GET_QUESTION_FLAG" , 1);
 
         QuestionTextView = (TextView) findViewById(R.id.QuestionTextView);
         Ask1Button = (Button) findViewById(R.id.Ask1Button);
@@ -86,13 +82,7 @@ public class QuizActivity extends NetworkActivity {
         CountDownProgressBar2 = (ProgressBar) findViewById(R.id.CountDownProgressBar2);
 
         // Task wykonuje zapytanie do bazy
-        if(getQuestionFlag == 1){
-            getQuestionFlag = 0;
-            //Zerowanie flagi GET Question , odpowiada za wywołanie zapytania do bazy SQL o nowe pytania
-            intent.putExtra("GET_QUESTION_FLAG",0);
-            new questionTask().execute();
-        }
-
+        new questionTask().execute();
 
         lvlCntView.setText("LvL " + lvlCntInt);
 
@@ -101,9 +91,12 @@ public class QuizActivity extends NetworkActivity {
         timDown.start();    //Wystartowanie timera odmierzajacego czas na odp
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> parent of 77cd1c0... add xml files
     private class questionTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -114,28 +107,33 @@ public class QuizActivity extends NetworkActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            //Tworzenie tablicy do zapytań
-            int id_question[] = new int[3];
-
             //LOSOWANIE ID PYTANIA
             Random rand = new Random();
-            id_question[0] = rand.nextInt(7);
-            id_question[1] = rand.nextInt(7);
-            id_question[2] = rand.nextInt(7);
+            id_question = rand.nextInt(7);
+            //Sprawdzanie czy ID się nie powtórzyło
 
-            //Powtórzenie losowania jeżeli id się powtórrzylo wcześniej
-            while(id_question[0] == id_question[1]){
-                id_question[1] = rand.nextInt(7);
-            }
+            k = getIntent().getIntExtra("CNT", 0);                          //Pobieranie k, jeżeli nie ma nic w CNT to k=0
 
-            //Powtórzenie losowania jeżeli id się powtórrzylo wcześniej
-            while(id_question[0] == id_question[2] && id_question[1] == id_question[2]){
-                id_question[2] = rand.nextInt(7);
+            if(k == 0) intent.putExtra("ID0", id_question);                 //Jeżeli k =0 to zapisz id w ID0
+            if(k == 1){
+                while (id_question == getIntent().getIntExtra("ID0",1)){   //Jeżeli k = 1 ( drugie pyt_ to losuuj do puki bedzie unikatowe i zapisz do ID1
+                    id_question = rand.nextInt(7);
+                }
+                intent.putExtra("ID1", id_question);
             }
+            if(k == 2){                                                      //Jeżeli k = 2 ( trzecie pyt_ to  losuuj do puki bedzie unikatowe
+                while ((id_question == getIntent().getIntExtra("ID0",1)) && (id_question == getIntent().getIntExtra("ID1",1))){
+                    id_question = rand.nextInt(7);
+                }
+            }
+            k++;
+            if(k == 3 ) k = 0;                                                 //zabezpieczenie przed wyjsciem poza zakres
+            intent.putExtra("CNT", k);                                         // zapisz do CNT aktualnej wartości k
+
 
             // =============================== dodany/zmieniony przeze mnie kod na retrofit'a =================================
 
-            final Call<QuestionJSON> questionCall = getWebService().Question(lvlCntInt, id_question[0] , id_question[1] , id_question[2]);
+            final Call<QuestionJSON> questionCall = getWebService().Question(lvlCntInt, id_question);
 
             questionCall.enqueue(new ApiClient.MyResponse<QuestionJSON>()
             {
@@ -181,8 +179,7 @@ public class QuizActivity extends NetworkActivity {
             if((questionNumber % 3) == 0) {
                 lvlCntInt++;
                 intent.putExtra("CNT", 0);
-                // Ustawianie flagi GET QUESTION, gdy jest ustawiona to wysyłamy zapytnie o nowe pytania
-                intent.putExtra("GET_QUESTION_FLAG",1);
+
                 lvlUP_flag = 1;
             }
             questionNumber++;
