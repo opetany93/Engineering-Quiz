@@ -1,5 +1,7 @@
 package net.ddns.opetany.engineeringquiz;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -20,5 +22,5 @@ public interface WebService
 
     @FormUrlEncoded
     @POST("question.php")
-    Call<QuestionJSON> Question(@Field("lvl") int lvl, @Field("id0") int id0 , @Field("id1") int id1 , @Field("id2") int id2);
+    Call<List<QuestionJSON>> Question(@Field("lvl") int lvl, @Field("id0") int id0 , @Field("id1") int id1 , @Field("id2") int id2);
 }

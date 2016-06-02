@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 import java.util.Random;
 import retrofit2.Call;
 
@@ -138,21 +140,21 @@ public class QuizActivity extends NetworkActivity {
 
             // =============================== dodany/zmieniony przeze mnie kod na retrofit'a =================================
 
-            final Call<QuestionJSON> questionCall = getWebService().Question(lvlCntInt, id_question[0] , id_question[1] , id_question[2]);
+            final Call<List<QuestionJSON>> questionCall = getWebService().Question(lvlCntInt, id_question[0] , id_question[1] , id_question[2]);
 
-            questionCall.enqueue(new ApiClient.MyResponse<QuestionJSON>()
+            questionCall.enqueue(new ApiClient.MyResponse<List<QuestionJSON>>()
             {
                 @Override
-                void onSuccess(QuestionJSON answer)
+                void onSuccess(List<QuestionJSON> answer)
                 {
                     //Wyświetlanie pobranych wartości
-                    QuestionTextView.setText(answer.question);
-                    Ask1Button.setText(answer.ans1);
-                    Ask2Button.setText(answer.ans2);
-                    Ask3Button.setText(answer.ans3);
-                    Ask4Button.setText(answer.ans4);
+                    QuestionTextView.setText(answer.get(0).question);
+                    Ask1Button.setText(answer.get(0).ans1);
+                    Ask2Button.setText(answer.get(0).ans2);
+                    Ask3Button.setText(answer.get(0).ans3);
+                    Ask4Button.setText(answer.get(0).ans4);
 
-                    good_ans = answer.good_ans;
+                    good_ans = answer.get(0).good_ans;
                 }
 
                 @Override
