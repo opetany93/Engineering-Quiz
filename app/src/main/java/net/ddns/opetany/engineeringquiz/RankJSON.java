@@ -5,7 +5,7 @@ package net.ddns.opetany.engineeringquiz;
  */
 public class RankJSON {
 
-    String user1;
+    String login;
 
     int result;
 }

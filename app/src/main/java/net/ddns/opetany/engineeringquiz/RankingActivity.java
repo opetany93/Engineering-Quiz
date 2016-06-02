@@ -107,7 +107,6 @@ public class RankingActivity extends AppCompatActivity {
     private class rankTask extends AsyncTask<Void, Void, Void> {
         int flag_post = 1;
 
-
         @Override
         protected void onPreExecute() {
 
@@ -116,13 +115,13 @@ public class RankingActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            final Call<RankJSON> rankCall = getWebService().Rank(flag_post);
+            final Call<List<RankJSON>> rankCall = getWebService().Rank(flag_post);
 
-            rankCall.enqueue(new ApiClient.MyResponse<RankJSON>() {
+            rankCall.enqueue(new ApiClient.MyResponse<List<RankJSON>>() {
 
                 @Override
-                void onSuccess(RankJSON answer) {
-                    user1 = answer.user1;
+                void onSuccess(List<RankJSON> answer) {
+                   user1 = answer.get(0).login;
                     Toast.makeText(getApplicationContext(), user1 , Toast.LENGTH_SHORT).show();
                 }
 
@@ -134,62 +133,11 @@ public class RankingActivity extends AppCompatActivity {
             });
 
 
-//            try {
-//                //Utworzenie połączenia
-//                URL url = new URL(URL_rank);
-//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//                connection.setDoOutput(true);
-//                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-//                connection.connect();
-//
-//                //wysłanie zapytania POST
-//                OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-//                request.write(parameters);
-//                request.flush();
-//                request.close();
-//
-//
-//                //NOTATKI PROGRAMISTY: Całe wysłanie zapytanie do bazy nie działa bez poniższych lini
-//                //odczyt odpowiedz
-//                String line;
-//                InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
-//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//                StringBuilder stringBuilder = new StringBuilder();
-//
-//                while ((line = bufferedReader.readLine()) != null) stringBuilder.append(line);
-//
-//                //konwersja otrzymanej odpowiedzi w formie stringa do objektu JSON'a
-//                jsonObject = new JSONObject(stringBuilder.toString());
-//
-//                inputStreamReader.close();
-//                bufferedReader.close();
-//
-//                connection.disconnect();       //zamknięcie connectoin
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//
-//            }
-//            catch (JSONException e) {
-//                e.printStackTrace();
-//
-//            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-
-//            try {
-//                user1 = jsonObject.getString("user1");
-//                user2 = jsonObject.getString("user2");
-//
-//                String toast = user1 + user2;
-//                Toast.makeText(getApplicationContext(), toast , Toast.LENGTH_SHORT).show();
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//           }
-
 
         }
 

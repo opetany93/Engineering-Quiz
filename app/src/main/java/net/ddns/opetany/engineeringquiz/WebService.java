@@ -1,5 +1,7 @@
 package net.ddns.opetany.engineeringquiz;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -24,5 +26,5 @@ public interface WebService
 
     @FormUrlEncoded
     @POST("rank.php")
-    Call<RankJSON> Rank(@Field("flag") int flag);
+    Call<List<RankJSON>> Rank(@Field("flag") int flag);
 }
